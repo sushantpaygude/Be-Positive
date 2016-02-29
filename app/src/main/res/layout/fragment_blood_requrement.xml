@@ -1,13 +1,37 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+android:padding="@dimen/activity_vertical_margin"
     tools:context=".inputForms.BloodRequirement">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
 
-</FrameLayout>
+
+    <EditText
+        android:id="@+id/edt_location_pincode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/standard_textSize"
+        android:hint="enter pincode"
+        android:inputType="number"/>
+
+    <EditText
+        android:layout_below="@id/edt_location_pincode"
+        android:id="@+id/edt_blood_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/standard_textSize"
+        android:hint="enter blood group"/>
+
+    <Button
+        android:id="@+id/btn_submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/standard_textSize"
+        android:text="Submit"
+        android:onClick="pushData"/>
+
+
+</LinearLayout>

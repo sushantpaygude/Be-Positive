@@ -8,6 +8,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.rnztx.donors.R;
 import com.example.rnztx.donors.utils.Constants;
@@ -32,18 +35,50 @@ public class BloodRequirement extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View rootView = inflater.inflate(R.layout.fragment_blood_requrement, container, false);
 
         //initilise firebase
         Firebase.setAndroidContext(getContext());
-        pushData();
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_blood_requrement, container, false);
+
+        Button btn_submit = (Button) rootView.findViewById(R.id.btn_submit);
+
+//        final EditText edt_uniqueId = (EditText)rootView.findViewById(R.id.edt_unique_id);
+        final EditText edt_location_pin = (EditText)rootView.findViewById(R.id.edt_location_pincode);
+        final EditText edt_blood_group = (EditText)rootView.findViewById(R.id.edt_blood_group);
+
+        // set on click listers
+        btn_submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                String id = edt_uniqueId.getText().toString();
+                String locationPin = edt_location_pin.getText().toString();
+                String bloodGroup = edt_blood_group.getText().toString();
+
+                pushData(locationPin,bloodGroup);
+                edt_blood_group.setText("");
+                edt_location_pin.setText("");
+
+                //focus
+                edt_location_pin.setFocusable(true);
+                Toast.makeText(getContext(),"Done",Toast.LENGTH_SHORT);
+            }
+        });
+        return rootView;
     }
 
-    private void pushData(){
-        Log.e(LOG_TAG,Constants.FIREBASE_URL_USER);
-        Firebase firebaseRef = new Firebase(Constants.FIREBASE_URL_USER);
-        String userName = "Rohit";
-        firebaseRef.setValue(userName);
+    public void pushData(String... var){
+        Log.e(LOG_TAG,"Data inserted");
+
+        Firebase rootFirebase= new Firebase(Constants.FIREBASE_URL_REQUIREMENTS);
+
+        Firebase newRef = rootFirebase.push();
+        String uniqueId = newRef.getKey();
+
+        Firebase refRquirement = rootFirebase.child(uniqueId);
+
+        refRquirement.child(Constants.FIREBASE_PROPERTY_PINCODE).setValue(var[0]);
+        refRquirement.child(Constants.FIREBASE_PROPERTY_BLOOD_GROUP).setValue(var[1]);
+
     }
 }
