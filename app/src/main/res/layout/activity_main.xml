@@ -1,44 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!--<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+    <!--xmlns:tools="http://schemas.android.com/tools"-->
+    <!--android:id="@+id/main_content"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:fitsSystemWindows="true"-->
+    <!--tools:context="com.example.rnztx.donors.MainActivity">-->
+
+    <!--&lt;!&ndash;<android.support.design.widget.AppBarLayout&ndash;&gt;-->
+        <!--&lt;!&ndash;android:id="@+id/appbar"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:paddingTop="@dimen/appbar_padding_top"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:theme="@style/AppTheme.AppBarOverlay">&ndash;&gt;-->
+
+        <!--&lt;!&ndash;<android.support.v7.widget.Toolbar&ndash;&gt;-->
+            <!--&lt;!&ndash;android:id="@+id/toolbar"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_height="?attr/actionBarSize"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:background="?attr/colorPrimary"&ndash;&gt;-->
+            <!--&lt;!&ndash;app:layout_scrollFlags="scroll|enterAlways"&ndash;&gt;-->
+            <!--&lt;!&ndash;app:popupTheme="@style/AppTheme.PopupOverlay">&ndash;&gt;-->
+
+        <!--&lt;!&ndash;</android.support.v7.widget.Toolbar>&ndash;&gt;-->
+
+    <!--&lt;!&ndash;</android.support.design.widget.AppBarLayout>&ndash;&gt;-->
+
+    <!--&lt;!&ndash;this represents the Tabs&ndash;&gt;-->
+    <!--<android.support.design.widget.TabLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/tabbar"-->
+        <!--android:background="@android:color/darker_gray"/>-->
+
+    <!--<android.support.v4.view.ViewPager-->
+        <!--android:id="@+id/container"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--app:layout_behavior="@string/appbar_scrolling_view_behavior" />-->
+
+
+
+    <!--&lt;!&ndash;<android.support.design.widget.FloatingActionButton&ndash;&gt;-->
+        <!--&lt;!&ndash;android:id="@+id/fab"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_gravity="end|bottom"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_margin="@dimen/fab_margin"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:src="@android:drawable/ic_dialog_email" />&ndash;&gt;-->
+
+<!--</android.support.design.widget.CoordinatorLayout>-->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:context="com.example.rnztx.donors.MainActivity">
+    android:orientation="vertical">
 
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/appbar"
+    <android.support.design.widget.TabLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/appbar_padding_top"
-        android:theme="@style/AppTheme.AppBarOverlay">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|enterAlways"
-            app:popupTheme="@style/AppTheme.PopupOverlay">
-
-        </android.support.v7.widget.Toolbar>
-
-    </android.support.design.widget.AppBarLayout>
+        android:id="@+id/tabbar"
+        android:background="@android:color/darker_gray"/>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end|bottom"
-        android:layout_margin="@dimen/fab_margin"
-        android:src="@android:drawable/ic_dialog_email" />
-
-</android.support.design.widget.CoordinatorLayout>
+</LinearLayout>

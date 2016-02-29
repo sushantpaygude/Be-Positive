@@ -6,6 +6,7 @@ import com.example.rnztx.donors.BuildConfig;
  * Created by rnztx on 2/2/16.
  */
 public class Constants {
+    public static final String ARG_SECTION_NUMBER = "section_number";
 
     public static final String FIREBASE_LOCATION_USERS = "users";
     public static final String FIREBASE_LOCATION_REQUIREMENTS = "requirements";

@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.rnztx.donors.R;
+import com.example.rnztx.donors.models.Requirement;
 import com.example.rnztx.donors.utils.Constants;
 import com.firebase.client.Firebase;
 
@@ -24,6 +25,13 @@ public class BloodRequirement extends Fragment {
     private static final String LOG_TAG = BloodRequirement.class.getSimpleName();
     public BloodRequirement() {
         // Required empty public constructor
+    }
+    public static BloodRequirement newInstance(int position){
+        BloodRequirement fragment = new BloodRequirement();
+        Bundle args = new Bundle();
+        args.putInt(Constants.ARG_SECTION_NUMBER,position);
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override
@@ -52,10 +60,13 @@ public class BloodRequirement extends Fragment {
             @Override
             public void onClick(View v) {
 //                String id = edt_uniqueId.getText().toString();
-                String locationPin = edt_location_pin.getText().toString();
+                int pinCode = Integer.parseInt(edt_location_pin.getText().toString());
                 String bloodGroup = edt_blood_group.getText().toString();
+                String userName = "rohit";
 
-                pushData(locationPin,bloodGroup);
+                Requirement requirement = new Requirement(bloodGroup,pinCode,userName);
+                pushData(requirement);
+
                 edt_blood_group.setText("");
                 edt_location_pin.setText("");
 
@@ -67,7 +78,7 @@ public class BloodRequirement extends Fragment {
         return rootView;
     }
 
-    public void pushData(String... var){
+    public void pushData(Requirement requirement){
         Log.e(LOG_TAG,"Data inserted");
 
         Firebase rootFirebase= new Firebase(Constants.FIREBASE_URL_REQUIREMENTS);
@@ -75,10 +86,8 @@ public class BloodRequirement extends Fragment {
         Firebase newRef = rootFirebase.push();
         String uniqueId = newRef.getKey();
 
-        Firebase refRquirement = rootFirebase.child(uniqueId);
-
-        refRquirement.child(Constants.FIREBASE_PROPERTY_PINCODE).setValue(var[0]);
-        refRquirement.child(Constants.FIREBASE_PROPERTY_BLOOD_GROUP).setValue(var[1]);
+        Firebase child_requirement = rootFirebase.child(uniqueId);
+        child_requirement.setValue(requirement);
 
     }
 }
