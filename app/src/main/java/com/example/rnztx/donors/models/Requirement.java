@@ -10,14 +10,17 @@ public class Requirement {
     private int pinCode;
     private long date;
     private String userId ;
+    private String requirementId ;
+    private boolean status = false;
 
     public Requirement(){ }
 
-    public Requirement(String bloodGroup, int pinCode, String userId) {
+    public Requirement(String bloodGroup, int pinCode, String userId, String uniqueId) {
         this.bloodGroup = bloodGroup;
         this.pinCode = pinCode;
         this.userId = userId;
         this.date = Calendar.getInstance().getTimeInMillis();
+        this.requirementId = uniqueId;
     }
 
     public String getBloodGroup() {
@@ -34,5 +37,13 @@ public class Requirement {
 
     public String getUserId() {
         return userId;
+    }
+
+    public String getRequirementId() {
+        return requirementId;
+    }
+
+    public boolean isStatus() {
+        return status;
     }
 }

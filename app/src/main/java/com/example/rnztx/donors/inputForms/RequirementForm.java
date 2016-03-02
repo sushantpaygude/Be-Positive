@@ -80,12 +80,12 @@ public class RequirementForm extends Fragment  {
 
         String userName = "rohit";
 
-        Requirement requirement = new Requirement(bloodGroup,pinCode,userName);
         Firebase rootFirebase= new Firebase(Constants.FIREBASE_URL_REQUIREMENTS);
 
         Firebase newRef = rootFirebase.push();
         String uniqueId = newRef.getKey();
 
+        Requirement requirement = new Requirement(bloodGroup,pinCode,userName,uniqueId);
         Firebase child_requirement = rootFirebase.child(uniqueId);
         child_requirement.setValue(requirement);
 
