@@ -17,17 +17,25 @@ import com.example.rnztx.donors.models.Requirement;
 import com.example.rnztx.donors.utils.Constants;
 import com.firebase.client.Firebase;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 /**
  * A simple {@link Fragment} subclass.
  */
-public class BloodRequirement extends Fragment {
+public class RequirementForm extends Fragment  {
+    @Bind(R.id.btn_submit) Button btn_submit;
 
-    private static final String LOG_TAG = BloodRequirement.class.getSimpleName();
-    public BloodRequirement() {
+    @Bind(R.id.edt_location_pincode) EditText edt_location_pin;
+    @Bind(R.id.edt_blood_group) EditText edt_blood_group;
+
+    private static final String LOG_TAG = RequirementForm.class.getSimpleName();
+    public RequirementForm() {
         // Required empty public constructor
     }
-    public static BloodRequirement newInstance(int position){
-        BloodRequirement fragment = new BloodRequirement();
+    public static RequirementForm newInstance(int position){
+        RequirementForm fragment = new RequirementForm();
         Bundle args = new Bundle();
         args.putInt(Constants.ARG_SECTION_NUMBER,position);
         fragment.setArguments(args);
@@ -38,6 +46,7 @@ public class BloodRequirement extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+
     }
 
     @Override
@@ -45,42 +54,33 @@ public class BloodRequirement extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_blood_requrement, container, false);
-
-        //initilise firebase
+        //Bind Fragment
+        ButterKnife.bind(this,rootView);
+        //initialize firebase
         Firebase.setAndroidContext(getContext());
-
-        Button btn_submit = (Button) rootView.findViewById(R.id.btn_submit);
-
-//        final EditText edt_uniqueId = (EditText)rootView.findViewById(R.id.edt_unique_id);
-        final EditText edt_location_pin = (EditText)rootView.findViewById(R.id.edt_location_pincode);
-        final EditText edt_blood_group = (EditText)rootView.findViewById(R.id.edt_blood_group);
-
-        // set on click listers
-        btn_submit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                String id = edt_uniqueId.getText().toString();
-                int pinCode = Integer.parseInt(edt_location_pin.getText().toString());
-                String bloodGroup = edt_blood_group.getText().toString();
-                String userName = "rohit";
-
-                Requirement requirement = new Requirement(bloodGroup,pinCode,userName);
-                pushData(requirement);
-
-                edt_blood_group.setText("");
-                edt_location_pin.setText("");
-
-                //focus
-                edt_location_pin.setFocusable(true);
-                Toast.makeText(getContext(),"Done",Toast.LENGTH_SHORT);
-            }
-        });
         return rootView;
     }
 
-    public void pushData(Requirement requirement){
-        Log.e(LOG_TAG,"Data inserted");
+    @OnClick(R.id.btn_submit)
+    public void publishBloodRequirement(){
+        int pinCode = 0;
+        String bloodGroup = null;
+        try {
+            pinCode = Integer.parseInt(edt_location_pin.getText().toString());
+            bloodGroup = edt_blood_group.getText().toString();
+        }catch (Exception e){
+            Log.e(LOG_TAG,e.toString());
+            Toast.makeText(getContext(),"Invalid Input",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(pinCode<100000 || bloodGroup==null){
+            Toast.makeText(getContext(),"Invalid Input",Toast.LENGTH_SHORT).show();
+            return;
+        }
 
+        String userName = "rohit";
+
+        Requirement requirement = new Requirement(bloodGroup,pinCode,userName);
         Firebase rootFirebase= new Firebase(Constants.FIREBASE_URL_REQUIREMENTS);
 
         Firebase newRef = rootFirebase.push();
@@ -89,5 +89,11 @@ public class BloodRequirement extends Fragment {
         Firebase child_requirement = rootFirebase.child(uniqueId);
         child_requirement.setValue(requirement);
 
+        edt_blood_group.setText("");
+        edt_location_pin.setText("");
+
+        //focus
+        edt_location_pin.setFocusable(true);
+        Toast.makeText(getContext(),"Done",Toast.LENGTH_SHORT).show();
     }
 }

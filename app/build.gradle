@@ -28,6 +28,10 @@ android {
         exclude 'META-INF/LICENSE-FIREBASE.txt'
         exclude 'META-INF/NOTICE'
     }
+    // for Butterknife package erroe
+    lintOptions {
+        disable 'InvalidPackage'
+    }
 }
 
 dependencies {
@@ -35,8 +39,10 @@ dependencies {
     testCompile 'junit:junit:4.12'
 
     //for firebase
+    compile 'com.firebase:firebase-client-android:2.4.0'
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.android.support:support-v4:23.1.1'
-    compile 'com.firebase:firebase-client-android:2.4.0'
     compile 'com.android.support:design:23.1.1'
+    //for butterknife
+    compile 'com.jakewharton:butterknife:7.0.1'
 }

@@ -9,10 +9,13 @@ public class Constants {
     public static final String ARG_SECTION_NUMBER = "section_number";
 
     public static final String FIREBASE_LOCATION_USERS = "users";
-    public static final String FIREBASE_LOCATION_REQUIREMENTS = "requirements";
+    public static final String FIREBASE_LOCATION_REQUIREMENTS = "blood_requirements";
 
-    public static final String FIREBASE_PROPERTY_PINCODE = "pincode";
-    public static final String FIREBASE_PROPERTY_BLOOD_GROUP = "blood_group";
+    public static final String FIREBASE_PROPERTY_PINCODE = "pinCode";
+    public static final String FIREBASE_PROPERTY_BLOOD_GROUP = "bloodGroup";
+    public static final String FIREBASE_PROPERTY_USER_ID = "userId";
+    public static final String FIREBASE_PROPERTY_DATE = "date";
+
     /**
      * Constaants Firebase URL
      * */

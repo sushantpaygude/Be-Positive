@@ -11,6 +11,8 @@ public class Requirement {
     private long date;
     private String userId ;
 
+    public Requirement(){ }
+
     public Requirement(String bloodGroup, int pinCode, String userId) {
         this.bloodGroup = bloodGroup;
         this.pinCode = pinCode;

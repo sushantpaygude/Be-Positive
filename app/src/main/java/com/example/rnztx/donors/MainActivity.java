@@ -14,7 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.rnztx.donors.inputForms.BloodRequirement;
+import com.example.rnztx.donors.inputForms.RequirementForm;
+import com.example.rnztx.donors.inputForms.NewsFeed;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -137,12 +138,12 @@ public class MainActivity extends AppCompatActivity {
             // Return a PlaceholderFragment (defined as a static inner class below).
             switch (position){
                 case 0:
-                    return BloodRequirement.newInstance(position + 1);
-//                    return PlaceholderFragment.newInstance(position + 1);
+                    return NewsFeed.newInstance();
                 case 1:
-                    return PlaceholderFragment.newInstance(position + 1);
+                    return RequirementForm.newInstance(position + 1);
                 case 2:
                     return PlaceholderFragment.newInstance(position + 1);
+
                 default:
                     return new Fragment();
             }
