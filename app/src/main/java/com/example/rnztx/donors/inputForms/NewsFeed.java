@@ -8,7 +8,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.rnztx.donors.R;
 import com.example.rnztx.donors.models.CustomAdapter;
@@ -45,6 +47,7 @@ public class NewsFeed extends Fragment {
 //        dummyData.add(new Requirement("O+",415304,"user"));
         mCustomAdapter = new CustomAdapter(getActivity(),dummyData);
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -87,8 +90,19 @@ public class NewsFeed extends Fragment {
 
             }
         });
+
+        newsFeedListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Requirement requirement = mCustomAdapter.getItem(position);
+                String location = Integer.toString(requirement.getPinCode());
+
+                Toast.makeText(getContext(),location,Toast.LENGTH_SHORT).show();
+            }
+        });
         return rootView;
     }
+
     public static NewsFeed newInstance(){
         NewsFeed fragment = new NewsFeed();
 //        Bundle args = new Bundle();
