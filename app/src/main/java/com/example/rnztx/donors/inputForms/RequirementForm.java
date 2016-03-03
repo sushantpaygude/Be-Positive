@@ -85,8 +85,10 @@ public class RequirementForm extends Fragment  {
     public void publishBloodRequirement(View view){
         int pinCode = 0;
         String bloodGroup = null;
+        String locName = null;
         try {
             int iLocation = spinner_areaName.getSelectedItemPosition();
+            locName = dataAreaName[iLocation];
             pinCode = Integer.parseInt(dataAreaPincode[iLocation]);
             bloodGroup = spinner_bloodGroup.getSelectedItem().toString();
         }catch (Exception e){
@@ -105,12 +107,12 @@ public class RequirementForm extends Fragment  {
             Firebase newRef = rootFirebase.push();
             String uniqueId = newRef.getKey();
 
-            Requirement requirement = new Requirement(bloodGroup,pinCode,userName,uniqueId);
+            Requirement requirement = new Requirement(bloodGroup,pinCode,userName,locName);
             Firebase child_requirement = rootFirebase.child(uniqueId);
             child_requirement.setValue(requirement);
 
             Toast.makeText(getContext(),"Done",Toast.LENGTH_SHORT).show();
-            Log.e(LOG_TAG,"index: "+spinner_bloodGroup.getSelectedItemPosition());
+//            Log.e(LOG_TAG,"index: "+spinner_bloodGroup.getSelectedItemPosition());
         }
     }
 }

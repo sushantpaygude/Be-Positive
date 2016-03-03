@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.rnztx.donors.R;
 import com.example.rnztx.donors.models.CustomAdapter;
@@ -32,7 +31,7 @@ import butterknife.ButterKnife;
 public class NewsFeed extends Fragment {
     @Bind(R.id.listView_news_feed)
     ListView newsFeedListView;
-
+    private static String LOG_TAG = NewsFeed.class.getSimpleName();
     private CustomAdapter mCustomAdapter;
     private ArrayList<Requirement> arrayListData;
     private ArrayList<Requirement> dummyData;
@@ -65,9 +64,10 @@ public class NewsFeed extends Fragment {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Requirement requirements = dataSnapshot.getValue(Requirement.class);
-                String val = Integer.toString(requirements.getPinCode());
-                mCustomAdapter.add(requirements);
-                Log.e("new Child,",val);
+                if(requirements!=null){
+                    Log.e(LOG_TAG,requirements.toString());
+                    mCustomAdapter.add(requirements);
+                }
             }
 
             @Override
@@ -95,9 +95,8 @@ public class NewsFeed extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Requirement requirement = mCustomAdapter.getItem(position);
-                String location = Integer.toString(requirement.getPinCode());
-
-                Toast.makeText(getContext(),location,Toast.LENGTH_SHORT).show();
+                Log.e("Data: ",requirement.toString());
+//                Toast.makeText(getContext(),,Toast.LENGTH_SHORT).show();
             }
         });
         return rootView;

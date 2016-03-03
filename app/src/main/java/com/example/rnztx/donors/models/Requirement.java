@@ -1,26 +1,29 @@
 package com.example.rnztx.donors.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.Calendar;
 
 /**
  * Created by rnztx on 29/2/16.
  */
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class Requirement {
     private String bloodGroup;
     private int pinCode;
     private long date;
     private String userId ;
-    private String requirementId ;
     private boolean status = false;
+    private String locName;
 
     public Requirement(){ }
 
-    public Requirement(String bloodGroup, int pinCode, String userId, String uniqueId) {
+    public Requirement(String bloodGroup, int pinCode, String userId, String locName) {
         this.bloodGroup = bloodGroup;
         this.pinCode = pinCode;
         this.userId = userId;
         this.date = Calendar.getInstance().getTimeInMillis();
-        this.requirementId = uniqueId;
+        this.locName = locName;
     }
 
     public String getBloodGroup() {
@@ -39,11 +42,14 @@ public class Requirement {
         return userId;
     }
 
-    public String getRequirementId() {
-        return requirementId;
+    public boolean getStatus() {return status;}
+
+    public String getLocName() {
+        return locName;
     }
 
-    public boolean isStatus() {
-        return status;
+    @Override
+    public String toString() {
+        return getBloodGroup()+"---"+getLocName()+"---"+getPinCode()+"---"+getDate()+"---"+getUserId()+"---"+getStatus();
     }
 }
