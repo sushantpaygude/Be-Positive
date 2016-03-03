@@ -35,6 +35,8 @@ public class NewsFeed extends Fragment {
     private CustomAdapter mCustomAdapter;
     private ArrayList<Requirement> arrayListData;
     private ArrayList<Requirement> dummyData;
+
+
     public NewsFeed() {
         // Required empty public constructor
     }
@@ -43,7 +45,7 @@ public class NewsFeed extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         dummyData = new ArrayList<>();
-//        dummyData.add(new Requirement("O+",415304,"user"));
+        dummyData.add(new Requirement("O+",415304,"user","swargate"));
         mCustomAdapter = new CustomAdapter(getActivity(),dummyData);
     }
 
@@ -96,7 +98,19 @@ public class NewsFeed extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Requirement requirement = mCustomAdapter.getItem(position);
                 Log.e("Data: ",requirement.toString());
-//                Toast.makeText(getContext(),,Toast.LENGTH_SHORT).show();
+                NewsDetail detail = new NewsDetail();
+                Bundle bundle = new Bundle();
+
+                String EXTRA_NAME = getString(R.string.news_detail);
+                bundle.putParcelable(EXTRA_NAME,requirement);
+                detail.setArguments(bundle);
+
+                // launch dialog box
+                android.app.FragmentManager fm = getActivity().getFragmentManager();
+                detail.show(fm,"oll");
+
+//                NewsDetail newsDetail = new NewsDetail();
+
             }
         });
         return rootView;
