@@ -8,8 +8,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.rnztx.donors.R;
@@ -27,10 +28,15 @@ import butterknife.OnClick;
 public class RequirementForm extends Fragment  {
     @Bind(R.id.btn_submit) Button btn_submit;
 
-    @Bind(R.id.edt_location_pincode) EditText edt_location_pin;
-    @Bind(R.id.edt_blood_group) EditText edt_blood_group;
+    // with dropDown List
+    @Bind(R.id.spinner_areaName) Spinner spinner_areaName;
+    @Bind(R.id.spinner_bloodGroup) Spinner spinner_bloodGroup;
 
+    final static String[] dataBloodGroup = new String[]{"O+", "O-","A+","A-","B+","B-","AB+","AB-"};
+    final static String[] dataAreaName = new String[] {"Kondhwa","Market Yard","Viman Nagar","Vishrantwadi","Wakad","Bajirao Road"};
+    final static String[] dataAreaPincode = new String[] {"411048","411037","411014","411015","411057","411002"};
     private static final String LOG_TAG = RequirementForm.class.getSimpleName();
+
     public RequirementForm() {
         // Required empty public constructor
     }
@@ -54,46 +60,57 @@ public class RequirementForm extends Fragment  {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_blood_requrement, container, false);
-        //Bind Fragment
-        ButterKnife.bind(this,rootView);
+
         //initialize firebase
         Firebase.setAndroidContext(getContext());
+
+        ArrayAdapter<String> adapterBloodGroup = new ArrayAdapter<String>(getContext(),
+                android.R.layout.simple_spinner_dropdown_item,dataBloodGroup);
+
+        ArrayAdapter<String> adapterAreaName = new ArrayAdapter<String>(getContext(),
+                android.R.layout.simple_spinner_dropdown_item,dataAreaName);
+
+        //Bind Fragment
+        ButterKnife.bind(this,rootView);
+
+        spinner_bloodGroup.setAdapter(adapterBloodGroup);
+        spinner_areaName.setAdapter(adapterAreaName);
+
+        Log.e(LOG_TAG,"index: "+spinner_bloodGroup.getSelectedItemPosition());
+
         return rootView;
     }
 
     @OnClick(R.id.btn_submit)
-    public void publishBloodRequirement(){
+    public void publishBloodRequirement(View view){
         int pinCode = 0;
         String bloodGroup = null;
         try {
-            pinCode = Integer.parseInt(edt_location_pin.getText().toString());
-            bloodGroup = edt_blood_group.getText().toString();
+            int iLocation = spinner_areaName.getSelectedItemPosition();
+            pinCode = Integer.parseInt(dataAreaPincode[iLocation]);
+            bloodGroup = spinner_bloodGroup.getSelectedItem().toString();
         }catch (Exception e){
             Log.e(LOG_TAG,e.toString());
             Toast.makeText(getContext(),"Invalid Input",Toast.LENGTH_SHORT).show();
             return;
         }
-        if(pinCode<100000 || bloodGroup==null){
+        if(pinCode==0 || pinCode<100000 || bloodGroup==null ){
             Toast.makeText(getContext(),"Invalid Input",Toast.LENGTH_SHORT).show();
             return;
+        }else {
+            String userName = "rohit";
+
+            Firebase rootFirebase= new Firebase(Constants.FIREBASE_URL_REQUIREMENTS);
+
+            Firebase newRef = rootFirebase.push();
+            String uniqueId = newRef.getKey();
+
+            Requirement requirement = new Requirement(bloodGroup,pinCode,userName,uniqueId);
+            Firebase child_requirement = rootFirebase.child(uniqueId);
+            child_requirement.setValue(requirement);
+
+            Toast.makeText(getContext(),"Done",Toast.LENGTH_SHORT).show();
+            Log.e(LOG_TAG,"index: "+spinner_bloodGroup.getSelectedItemPosition());
         }
-
-        String userName = "rohit";
-
-        Firebase rootFirebase= new Firebase(Constants.FIREBASE_URL_REQUIREMENTS);
-
-        Firebase newRef = rootFirebase.push();
-        String uniqueId = newRef.getKey();
-
-        Requirement requirement = new Requirement(bloodGroup,pinCode,userName,uniqueId);
-        Firebase child_requirement = rootFirebase.child(uniqueId);
-        child_requirement.setValue(requirement);
-
-        edt_blood_group.setText("");
-        edt_location_pin.setText("");
-
-        //focus
-        edt_location_pin.setFocusable(true);
-        Toast.makeText(getContext(),"Done",Toast.LENGTH_SHORT).show();
     }
 }
