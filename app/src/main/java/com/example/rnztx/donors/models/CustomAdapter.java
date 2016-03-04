@@ -23,6 +23,7 @@ public class CustomAdapter extends ArrayAdapter<Requirement> {
     @Bind(R.id.txtBloodGroup) TextView txtBloodGroup;
     @Bind(R.id.txtLocationName) TextView txtLocationName;
     @Bind(R.id.txtDate) TextView txtDate;
+    @Bind(R.id.txtStatus) TextView txtStatus;
 
     public CustomAdapter(Activity activity, List<Requirement> requirement){
         super(activity,0,requirement);
@@ -42,6 +43,12 @@ public class CustomAdapter extends ArrayAdapter<Requirement> {
         SimpleDateFormat shortDate = new SimpleDateFormat("EEE MMM dd");
         txtDate.setText(shortDate.format(bloodRequirement.getDate()));
 
+        boolean status = bloodRequirement.getStatus();
+        if (status){
+            txtStatus.setText(R.string.requirement_status_accepted);
+        }else {
+            txtStatus.setText(R.string.requirement_status_pending);
+        }
         return convertView;
     }
 }
