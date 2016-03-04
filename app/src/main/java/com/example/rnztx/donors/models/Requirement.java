@@ -3,14 +3,12 @@ package com.example.rnztx.donors.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import java.util.Calendar;
 
 /**
  * Created by rnztx on 29/2/16.
  */
-@JsonIgnoreProperties(ignoreUnknown=true)
+//@JsonIgnoreProperties(ignoreUnknown=true)
 public class Requirement implements Parcelable{
     private String bloodGroup;
     private int pinCode;

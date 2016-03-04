@@ -7,6 +7,9 @@
 <ListView
     android:id="@+id/listView_news_feed"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"/>
+    android:layout_height="match_parent"
+    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+    android:layout_marginRight="@dimen/activity_horizontal_margin"
+    />
 
 </FrameLayout>

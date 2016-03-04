@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.example.rnztx.donors.R;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import butterknife.Bind;
@@ -19,7 +20,9 @@ import butterknife.ButterKnife;
  */
 public class CustomAdapter extends ArrayAdapter<Requirement> {
     private static String LOG_TAG = CustomAdapter.class.getSimpleName();
-    @Bind(R.id.title) TextView title;
+    @Bind(R.id.txtBloodGroup) TextView txtBloodGroup;
+    @Bind(R.id.txtLocationName) TextView txtLocationName;
+    @Bind(R.id.txtDate) TextView txtDate;
 
     public CustomAdapter(Activity activity, List<Requirement> requirement){
         super(activity,0,requirement);
@@ -33,8 +36,11 @@ public class CustomAdapter extends ArrayAdapter<Requirement> {
         }
         ButterKnife.bind(this,convertView);
 
-        String titleTxt = Integer.toString(bloodRequirement.getPinCode());
-        title.setText(titleTxt);
+        txtBloodGroup.setText(bloodRequirement.getBloodGroup());
+        txtLocationName.setText(bloodRequirement.getLocName());
+
+        SimpleDateFormat shortDate = new SimpleDateFormat("EEE MMM dd");
+        txtDate.setText(shortDate.format(bloodRequirement.getDate()));
 
         return convertView;
     }
