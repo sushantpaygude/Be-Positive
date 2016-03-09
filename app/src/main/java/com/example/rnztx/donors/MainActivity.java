@@ -140,9 +140,9 @@ public class MainActivity extends AppCompatActivity {
                 case 0:
                     return NewsFeed.newInstance();
                 case 1:
-                    return RequirementForm.newInstance(position + 1);
-                case 2:
                     return PlaceholderFragment.newInstance(position + 1);
+                case 2:
+                    return RequirementForm.newInstance(position + 1);
 
                 default:
                     return new Fragment();
@@ -160,11 +160,11 @@ public class MainActivity extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "SECTION 1";
+                    return "Pending";
                 case 1:
-                    return "SECTION 2";
+                    return "Accepted";
                 case 2:
-                    return "SECTION 3";
+                    return "Create New";
             }
             return null;
         }

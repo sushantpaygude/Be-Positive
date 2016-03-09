@@ -36,7 +36,6 @@ public class NewsFeed extends Fragment {
     private ArrayList<Requirement> arrayListData;
     private ArrayList<Requirement> dummyData;
 
-
     public NewsFeed() {
         // Required empty public constructor
     }
@@ -47,8 +46,15 @@ public class NewsFeed extends Fragment {
         dummyData = new ArrayList<>();
         dummyData.add(new Requirement("O+",415304,"user","swargate"));
         mCustomAdapter = new CustomAdapter(getActivity(),dummyData);
+
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        // to Avoid Duplicate Data
+        mCustomAdapter.clear();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -79,7 +85,7 @@ public class NewsFeed extends Fragment {
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
-
+                mCustomAdapter.clear();
             }
 
             @Override
@@ -123,4 +129,9 @@ public class NewsFeed extends Fragment {
         return fragment;
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mCustomAdapter.clear();
+    }
 }

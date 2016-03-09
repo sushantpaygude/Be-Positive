@@ -87,6 +87,7 @@ public class RequirementForm extends Fragment  {
         String bloodGroup = null;
         String locName = null;
         try {
+            //when Exception is thrown, spinner will also raise Error.
             int iLocation = spinner_areaName.getSelectedItemPosition();
             locName = dataAreaName[iLocation];
             pinCode = Integer.parseInt(dataAreaPincode[iLocation]);
@@ -102,14 +103,20 @@ public class RequirementForm extends Fragment  {
         }else {
             String userName = "rohit";
 
-            Firebase rootFirebase= new Firebase(Constants.FIREBASE_URL_REQUIREMENTS);
 
+            Firebase rootFirebase= new Firebase(Constants.FIREBASE_URL_REQUIREMENTS);
+               rootFirebase.goOnline();
             Firebase newRef = rootFirebase.push();
             String uniqueId = newRef.getKey();
 
+
             Requirement requirement = new Requirement(bloodGroup,pinCode,userName,locName);
             Firebase child_requirement = rootFirebase.child(uniqueId);
+            child_requirement.goOnline();
             child_requirement.setValue(requirement);
+
+            child_requirement.goOffline();
+            rootFirebase.goOffline();
 
             Toast.makeText(getContext(),"Done",Toast.LENGTH_SHORT).show();
 //            Log.e(LOG_TAG,"index: "+spinner_bloodGroup.getSelectedItemPosition());

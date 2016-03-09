@@ -20,8 +20,10 @@ import butterknife.OnClick;
  * Created by rnztx on 3/3/16.
  */
 public class NewsDetail extends DialogFragment {
-    @Bind(R.id.txtHello) TextView txtHello;
+    @Bind(R.id.txtUserName) TextView txtUserName;
     @Bind(R.id.btn_close) Button btnClose;
+    @Bind(R.id.txtBloodGroup) TextView txtBloodGroup;
+    @Bind(R.id.txtLocationName) TextView txtLocationName;
 
     private Requirement requirement;
     @Nullable
@@ -32,7 +34,10 @@ public class NewsDetail extends DialogFragment {
         requirement = bundle.getParcelable(getString(R.string.news_detail));
         ButterKnife.bind(this,rootView);
 
-        txtHello.setText(requirement.getLocName());
+        txtUserName.setText(requirement.getUserId());
+        txtLocationName.setText(requirement.getLocName());
+        txtBloodGroup.setText(requirement.getBloodGroup());
+
         return rootView;
     }
 
