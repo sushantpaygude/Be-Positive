@@ -14,10 +14,15 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.rnztx.donors.R;
-import com.example.rnztx.donors.models.ReferenceRequirement;
+import com.example.rnztx.donors.models.KeyReference;
 import com.example.rnztx.donors.models.Requirement;
 import com.example.rnztx.donors.utils.Constants;
 import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.shaded.fasterxml.jackson.databind.ObjectMapper;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -103,38 +108,46 @@ public class RequirementForm extends Fragment  {
             Toast.makeText(getContext(),"Invalid Input",Toast.LENGTH_SHORT).show();
             return;
         }else {
-            String userName = "rohit";
-            Requirement requirement = new Requirement(bloodGroup,pinCode,userName,locName);
+            try {
+                String userName = "rohit";
+                Requirement objRequirement = new Requirement(bloodGroup,pinCode,userName,locName);
+                KeyReference objKeyReference = null;
 
-            Firebase.goOnline();
+                Firebase.goOnline();
+                Firebase fRoot = new Firebase(Constants.FIREBASE_URL);
+                Firebase fChildRequirement = fRoot.child(Constants.FIREBASE_LOCATION_REQUIREMENTS);
+                Firebase fChildReference = fRoot.child(Constants.FIREBASE_LOCATION_REQ_REFERENCES);
 
-            Firebase rootFirebase= new Firebase(Constants.FIREBASE_URL_REQUIREMENTS);
-            Firebase newRef = rootFirebase.push();
-            String uniqueId = newRef.getKey();
+                String keyRequirement = fChildRequirement.push().getKey();
+                String keyReference = fChildReference.push().getKey();
+                Log.e("KEYS: ",keyReference+" "+keyRequirement);
+                objKeyReference = new KeyReference(keyRequirement);
 
-            Firebase child_requirement = rootFirebase.child(uniqueId);
-            child_requirement.setValue(requirement);
+                // map POJO to hashmap
+                Map<String,Object> mapRequirement = new ObjectMapper().convertValue(objRequirement,Map.class);
+                Map<String, Object> mapReference = new ObjectMapper().convertValue(objKeyReference,Map.class);
 
-            createReference(bloodGroup,pinCode,uniqueId);
+                Map<String,Object> mapData = new HashMap<>();
+                mapData.put(Constants.FIREBASE_LOCATION_REQUIREMENTS+"/"+keyRequirement,mapRequirement);
+                mapData.put(Constants.FIREBASE_LOCATION_REQ_REFERENCES+"/"+keyReference,mapReference);
+
+                fRoot.updateChildren(mapData, new Firebase.CompletionListener() {
+                    @Override
+                    public void onComplete(FirebaseError firebaseError, Firebase firebase) {
+                        if(firebaseError!=null)
+                            Log.e(LOG_TAG,firebaseError.getMessage());
+                    }
+                });
+                Firebase.goOffline();
+            }
+            catch (Exception e){
+                Log.e(LOG_TAG,e.toString());
+            }
+//            createReference(bloodGroup,pinCode,uniqueId);
 //            Log.e(LOG_TAG,"index: "+spinner_bloodGroup.getSelectedItemPosition());
         }
     }
-    private void createReference(String bloodGroup,int pinCode, String uniqueId){
-        try {
-            // create references
-            String url = getReferenceURL(bloodGroup,pinCode);
-            Firebase ref = new Firebase(url);
-            ReferenceRequirement obj = new ReferenceRequirement(uniqueId);
-            String key = ref.push().getKey();
-            Firebase child = ref.child(key);
-            child.setValue(obj);
 
-            Firebase.goOffline();
-            Toast.makeText(getContext(),"Done",Toast.LENGTH_SHORT).show();
-        }catch (Exception e){
-            Log.e(LOG_TAG,e.toString());
-        }
-    }
     private String getReferenceURL(String bloodGroup,int pinCode){
         // base url + ref + blood group+ pincode
         String url =  Constants.FIREBASE_URL_REFERENCES;

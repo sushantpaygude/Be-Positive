@@ -3,12 +3,12 @@ package com.example.rnztx.donors.models;
 /**
  * Created by rnztx on 9/3/16.
  */
-public class ReferenceRequirement {
+public class KeyReference extends Object{
     String uniqueKey;
-    public ReferenceRequirement() {
+    public KeyReference() {
     }
 
-    public ReferenceRequirement(String uniqueKey) {
+    public KeyReference(String uniqueKey) {
         this.uniqueKey = uniqueKey;
     }
 
