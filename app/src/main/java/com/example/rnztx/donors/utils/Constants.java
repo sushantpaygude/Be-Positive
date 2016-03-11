@@ -10,6 +10,7 @@ public class Constants {
 
     public static final String FIREBASE_LOCATION_USERS = "users";
     public static final String FIREBASE_LOCATION_REQUIREMENTS = "blood_requirements";
+    public static final String FIREBASE_LOCATION_REQ_REFERENCES = "requirement_references";
 
     public static final String FIREBASE_PROPERTY_PINCODE = "pinCode";
     public static final String FIREBASE_PROPERTY_BLOOD_GROUP = "bloodGroup";
@@ -22,4 +23,6 @@ public class Constants {
     public static final String FIREBASE_URL = BuildConfig.UNIQUE_FIREBASE_ROOT_URL;
 
     public static final String FIREBASE_URL_REQUIREMENTS = FIREBASE_URL + "/"+FIREBASE_LOCATION_REQUIREMENTS;
+    public static final String FIREBASE_URL_REFERENCES = FIREBASE_URL + "/"+ FIREBASE_LOCATION_REQ_REFERENCES ;
+
 }

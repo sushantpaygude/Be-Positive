@@ -14,6 +14,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.rnztx.donors.R;
+import com.example.rnztx.donors.models.ReferenceRequirement;
 import com.example.rnztx.donors.models.Requirement;
 import com.example.rnztx.donors.utils.Constants;
 import com.firebase.client.Firebase;
@@ -97,29 +98,48 @@ public class RequirementForm extends Fragment  {
             Toast.makeText(getContext(),"Invalid Input",Toast.LENGTH_SHORT).show();
             return;
         }
+
         if(pinCode==0 || pinCode<100000 || bloodGroup==null ){
             Toast.makeText(getContext(),"Invalid Input",Toast.LENGTH_SHORT).show();
             return;
         }else {
             String userName = "rohit";
+            Requirement requirement = new Requirement(bloodGroup,pinCode,userName,locName);
 
+            Firebase.goOnline();
 
             Firebase rootFirebase= new Firebase(Constants.FIREBASE_URL_REQUIREMENTS);
-               rootFirebase.goOnline();
             Firebase newRef = rootFirebase.push();
             String uniqueId = newRef.getKey();
 
-
-            Requirement requirement = new Requirement(bloodGroup,pinCode,userName,locName);
             Firebase child_requirement = rootFirebase.child(uniqueId);
-            child_requirement.goOnline();
             child_requirement.setValue(requirement);
 
-            child_requirement.goOffline();
-            rootFirebase.goOffline();
-
-            Toast.makeText(getContext(),"Done",Toast.LENGTH_SHORT).show();
+            createReference(bloodGroup,pinCode,uniqueId);
 //            Log.e(LOG_TAG,"index: "+spinner_bloodGroup.getSelectedItemPosition());
         }
+    }
+    private void createReference(String bloodGroup,int pinCode, String uniqueId){
+        try {
+            // create references
+            String url = getReferenceURL(bloodGroup,pinCode);
+            Firebase ref = new Firebase(url);
+            ReferenceRequirement obj = new ReferenceRequirement(uniqueId);
+            String key = ref.push().getKey();
+            Firebase child = ref.child(key);
+            child.setValue(obj);
+
+            Firebase.goOffline();
+            Toast.makeText(getContext(),"Done",Toast.LENGTH_SHORT).show();
+        }catch (Exception e){
+            Log.e(LOG_TAG,e.toString());
+        }
+    }
+    private String getReferenceURL(String bloodGroup,int pinCode){
+        // base url + ref + blood group+ pincode
+        String url =  Constants.FIREBASE_URL_REFERENCES;
+//                "/"+bloodGroup+"/"+pinCode;
+        Log.e(LOG_TAG,url);
+        return url;
     }
 }

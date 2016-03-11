@@ -1,6 +1,7 @@
 package com.example.rnztx.donors.inputForms;
 
 
+import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -35,7 +36,7 @@ public class NewsFeed extends Fragment {
     private CustomAdapter mCustomAdapter;
     private ArrayList<Requirement> arrayListData;
     private ArrayList<Requirement> dummyData;
-
+    private static Firebase mFirebaseRef;
     public NewsFeed() {
         // Required empty public constructor
     }
@@ -46,6 +47,11 @@ public class NewsFeed extends Fragment {
         dummyData = new ArrayList<>();
         dummyData.add(new Requirement("O+",415304,"user","swargate"));
         mCustomAdapter = new CustomAdapter(getActivity(),dummyData);
+        Firebase.setAndroidContext(getActivity());
+
+        // O+ kondhava
+//        String TEMP_URL = Constants.FIREBASE_URL_REFERENCES + "/O+"+"/411048";
+//        mFirebaseRef = new Firebase(TEMP_URL);
 
     }
 
@@ -61,14 +67,14 @@ public class NewsFeed extends Fragment {
                              Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
-        Firebase.setAndroidContext(getActivity());
+
         View rootView =  inflater.inflate(R.layout.fragment_news_feed, container, false);
         ButterKnife.bind(this,rootView);
         newsFeedListView.setAdapter(mCustomAdapter);
 
-        Firebase firebase = new Firebase(Constants.FIREBASE_URL_REQUIREMENTS);
+        mFirebaseRef = new Firebase(Constants.FIREBASE_URL_REQUIREMENTS);
 
-        firebase.addChildEventListener(new ChildEventListener() {
+        mFirebaseRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Requirement requirements = dataSnapshot.getValue(Requirement.class);
@@ -112,7 +118,7 @@ public class NewsFeed extends Fragment {
                 detail.setArguments(bundle);
 
                 // launch dialog box
-                android.app.FragmentManager fm = getActivity().getFragmentManager();
+                FragmentManager fm = getActivity().getFragmentManager();
                 detail.show(fm,"oll");
 
 //                NewsDetail newsDetail = new NewsDetail();
