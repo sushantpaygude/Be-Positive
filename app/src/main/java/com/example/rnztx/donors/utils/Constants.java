@@ -16,6 +16,7 @@ public class Constants {
     public static final String FIREBASE_PROPERTY_BLOOD_GROUP = "bloodGroup";
     public static final String FIREBASE_PROPERTY_USER_ID = "userId";
     public static final String FIREBASE_PROPERTY_DATE = "date";
+    public static final String FIREBASE_PROPERTY_STATUS = "status";
 
     /**
      * Constaants Firebase URL

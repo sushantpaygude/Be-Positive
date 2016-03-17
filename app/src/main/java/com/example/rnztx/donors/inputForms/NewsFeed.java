@@ -45,7 +45,7 @@ public class NewsFeed extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         dummyData = new ArrayList<>();
-        dummyData.add(new Requirement("O+",415304,"user","swargate"));
+        dummyData.add(new Requirement("O+",415304,"user","swargate","key"));
         mCustomAdapter = new CustomAdapter(getActivity(),dummyData);
         Firebase.setAndroidContext(getActivity());
 

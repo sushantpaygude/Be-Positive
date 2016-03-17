@@ -16,15 +16,21 @@ public class Requirement implements Parcelable{
     private String userId ;
     private boolean status = false;
     private String locName;
-
+    private String objKey;
     public Requirement(){ }
 
-    public Requirement(String bloodGroup, int pinCode, String userId, String locName) {
+    public String getObjKey() {
+        return objKey;
+    }
+
+    public Requirement(String bloodGroup, int pinCode, String userId, String locName, String objKey) {
         this.bloodGroup = bloodGroup;
         this.pinCode = pinCode;
         this.userId = userId;
         this.date = Calendar.getInstance().getTimeInMillis();
         this.locName = locName;
+        this.objKey = objKey;
+
     }
 
     @Override
@@ -34,6 +40,8 @@ public class Requirement implements Parcelable{
         parcel.writeString(userId);
         parcel.writeLong(date);
         parcel.writeString(locName);
+        parcel.writeByte(((byte)(status?1:0)));
+        parcel.writeString(objKey);
     }
     public Requirement(Parcel parcel){
         bloodGroup = parcel.readString();
@@ -41,6 +49,9 @@ public class Requirement implements Parcelable{
         userId = parcel.readString();
         date = parcel.readLong();
         locName = parcel.readString();
+        status = parcel.readByte() != 0;
+        objKey = parcel.readString();
+
     }
     public static final Parcelable.Creator<Requirement> CREATOR = new Parcelable.Creator<Requirement>(){
         @Override

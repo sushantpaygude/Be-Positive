@@ -110,7 +110,6 @@ public class RequirementForm extends Fragment  {
         }else {
             try {
                 String userName = "rohit";
-                Requirement objRequirement = new Requirement(bloodGroup,pinCode,userName,locName);
                 KeyReference objKeyReference = null;
 
                 Firebase.goOnline();
@@ -120,6 +119,7 @@ public class RequirementForm extends Fragment  {
 
                 String keyRequirement = fChildRequirement.push().getKey();
                 String keyReference = fChildReference.push().getKey();
+                Requirement objRequirement = new Requirement(bloodGroup,pinCode,userName,locName,keyRequirement);
                 Log.e("KEYS: ",keyReference+" "+keyRequirement);
                 objKeyReference = new KeyReference(keyRequirement);
 
