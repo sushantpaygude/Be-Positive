@@ -28,15 +28,15 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NewsFeed extends Fragment {
+public class FeedPending extends Fragment {
     @Bind(R.id.listView_news_feed)
     ListView newsFeedListView;
-    private static String LOG_TAG = NewsFeed.class.getSimpleName();
+    private static String LOG_TAG = FeedPending.class.getSimpleName();
     private CustomAdapter mCustomAdapter;
     private ArrayList<Requirement> arrayListData;
     private ArrayList<Requirement> dummyData;
     private static Firebase mFirebaseRef;
-    public NewsFeed() {
+    public FeedPending() {
         // Required empty public constructor
     }
 
@@ -111,7 +111,7 @@ public class NewsFeed extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Requirement requirement = mCustomAdapter.getItem(position);
-                NewsDetail detail = new NewsDetail();
+                FeedDetail detail = new FeedDetail();
                 Bundle bundle = new Bundle();
 
                 String EXTRA_NAME = getString(R.string.news_detail);
@@ -122,15 +122,15 @@ public class NewsFeed extends Fragment {
                 FragmentManager fm = getActivity().getFragmentManager();
                 detail.show(fm,"oll");
 
-//                NewsDetail newsDetail = new NewsDetail();
+//                FeedDetail newsDetail = new FeedDetail();
 
             }
         });
         return rootView;
     }
 
-    public static NewsFeed newInstance(){
-        NewsFeed fragment = new NewsFeed();
+    public static FeedPending newInstance(){
+        FeedPending fragment = new FeedPending();
 //        Bundle args = new Bundle();
 //        args.putInt(Constants.ARG_SECTION_NUMBER,position);
         return fragment;

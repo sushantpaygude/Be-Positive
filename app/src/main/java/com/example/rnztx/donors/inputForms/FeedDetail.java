@@ -26,7 +26,7 @@ import butterknife.OnClick;
 /**
  * Created by rnztx on 3/3/16.
  */
-public class NewsDetail extends DialogFragment {
+public class FeedDetail extends DialogFragment {
     @Bind(R.id.txtUserName) TextView txtUserName;
     @Bind(R.id.btn_close) Button btnClose;
     @Bind(R.id.txtBloodGroup) TextView txtBloodGroup;

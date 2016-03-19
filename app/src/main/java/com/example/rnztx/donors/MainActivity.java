@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.rnztx.donors.inputForms.RequirementForm;
-import com.example.rnztx.donors.inputForms.NewsFeed;
+import com.example.rnztx.donors.inputForms.FeedPending;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
             // Return a PlaceholderFragment (defined as a static inner class below).
             switch (position){
                 case 0:
-                    return NewsFeed.newInstance();
+                    return FeedPending.newInstance();
                 case 1:
                     return PlaceholderFragment.newInstance(position + 1);
                 case 2:
