@@ -1,4 +1,4 @@
-package com.example.rnztx.donors.inputForms;
+package com.example.rnztx.donors.feeds.pending;
 
 import android.app.DialogFragment;
 import android.os.Bundle;
@@ -26,7 +26,7 @@ import butterknife.OnClick;
 /**
  * Created by rnztx on 3/3/16.
  */
-public class FeedDetail extends DialogFragment {
+public class FeedPendingDetail extends DialogFragment {
     @Bind(R.id.txtUserName) TextView txtUserName;
     @Bind(R.id.btn_close) Button btnClose;
     @Bind(R.id.txtBloodGroup) TextView txtBloodGroup;

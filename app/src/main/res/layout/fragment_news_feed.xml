@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".inputForms.FeedPending">
+    tools:context=".feeds.pending.FeedPending">
 
 <ListView
     android:id="@+id/listView_news_feed"

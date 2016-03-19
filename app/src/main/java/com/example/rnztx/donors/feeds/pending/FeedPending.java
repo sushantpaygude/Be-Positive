@@ -1,4 +1,4 @@
-package com.example.rnztx.donors.inputForms;
+package com.example.rnztx.donors.feeds.pending;
 
 
 import android.app.FragmentManager;
@@ -111,7 +111,7 @@ public class FeedPending extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Requirement requirement = mCustomAdapter.getItem(position);
-                FeedDetail detail = new FeedDetail();
+                FeedPendingDetail detail = new FeedPendingDetail();
                 Bundle bundle = new Bundle();
 
                 String EXTRA_NAME = getString(R.string.news_detail);
@@ -122,7 +122,7 @@ public class FeedPending extends Fragment {
                 FragmentManager fm = getActivity().getFragmentManager();
                 detail.show(fm,"oll");
 
-//                FeedDetail newsDetail = new FeedDetail();
+//                FeedPendingDetail newsDetail = new FeedPendingDetail();
 
             }
         });

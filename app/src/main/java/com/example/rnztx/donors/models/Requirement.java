@@ -17,7 +17,9 @@ public class Requirement implements Parcelable{
     private boolean status = false;
     private String locName;
     private String objKey;
-    public Requirement(){ }
+    public Requirement(){
+        this("A",-1,"A","A","A");
+    }
 
     public String getObjKey() {
         return objKey;

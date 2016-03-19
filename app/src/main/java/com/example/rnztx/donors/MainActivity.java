@@ -14,8 +14,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.rnztx.donors.inputForms.RequirementForm;
-import com.example.rnztx.donors.inputForms.FeedPending;
+import com.example.rnztx.donors.feeds.RequirementForm;
+import com.example.rnztx.donors.feeds.accepted.FeedAccepted;
+import com.example.rnztx.donors.feeds.pending.FeedPending;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -117,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
             TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
+//            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
             return rootView;
         }
     }
@@ -140,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
                 case 0:
                     return FeedPending.newInstance();
                 case 1:
-                    return PlaceholderFragment.newInstance(position + 1);
+                    return FeedAccepted.newInstance();
                 case 2:
                     return RequirementForm.newInstance(position + 1);
 

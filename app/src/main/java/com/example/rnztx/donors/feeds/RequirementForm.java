@@ -1,4 +1,4 @@
-package com.example.rnztx.donors.inputForms;
+package com.example.rnztx.donors.feeds;
 
 
 import android.os.Bundle;

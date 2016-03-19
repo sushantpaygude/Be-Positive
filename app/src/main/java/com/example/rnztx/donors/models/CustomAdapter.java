@@ -57,8 +57,10 @@ public class CustomAdapter extends ArrayAdapter<Requirement> {
 
     @Override
     public void add(Requirement object) {
-        super.add(object);
-        keySet.add(object.getObjKey());
+        if (!keySet.contains(object.getObjKey())){
+            super.add(object);
+            keySet.add(object.getObjKey());
+        }
     }
 
     @Override
