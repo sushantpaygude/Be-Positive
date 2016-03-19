@@ -8,11 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.rnztx.donors.R;
 import com.example.rnztx.donors.models.Requirement;
 import com.example.rnztx.donors.utils.Constants;
 import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -62,7 +64,18 @@ public class NewsDetail extends DialogFragment {
 
             Map<String,Object> mapObj = new HashMap<>();
             mapObj.put(Constants.FIREBASE_PROPERTY_STATUS,true);
-            fChild.updateChildren(mapObj);
+            fChild.updateChildren(mapObj, new Firebase.CompletionListener() {
+                @Override
+                public void onComplete(FirebaseError firebaseError, Firebase firebase) {
+                    if (firebaseError!=null)
+                        Toast.makeText(getActivity(),"Failed",Toast.LENGTH_SHORT).show();
+                    else{
+                        Toast.makeText(getActivity(),"Accepted",Toast.LENGTH_LONG).show();
+                        dismiss();
+                    }
+
+                }
+            });
         }
     }
 

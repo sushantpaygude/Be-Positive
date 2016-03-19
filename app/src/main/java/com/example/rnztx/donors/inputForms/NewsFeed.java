@@ -5,7 +5,6 @@ import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,11 +47,6 @@ public class NewsFeed extends Fragment {
         dummyData.add(new Requirement("O+",415304,"user","swargate","key"));
         mCustomAdapter = new CustomAdapter(getActivity(),dummyData);
         Firebase.setAndroidContext(getActivity());
-
-        // O+ kondhava
-//        String TEMP_URL = Constants.FIREBASE_URL_REFERENCES + "/O+"+"/411048";
-//        mFirebaseRef = new Firebase(TEMP_URL);
-
     }
 
     @Override
@@ -79,19 +73,27 @@ public class NewsFeed extends Fragment {
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Requirement requirements = dataSnapshot.getValue(Requirement.class);
                 if(requirements!=null){
-                    Log.e(LOG_TAG,requirements.toString());
-                    mCustomAdapter.add(requirements);
+                    if (!requirements.getStatus())
+                        mCustomAdapter.add(requirements);
                 }
             }
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
+                Requirement obj = dataSnapshot.getValue(Requirement.class);
+                if (obj!=null){
+                    // if status accepted
+                    if (obj.getStatus())
+                        mCustomAdapter.remove(obj);
+                }
             }
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
-                mCustomAdapter.clear();
+                Requirement obj = dataSnapshot.getValue(Requirement.class);
+                if (obj!=null){
+                    mCustomAdapter.remove(obj);
+                }
             }
 
             @Override
@@ -109,7 +111,6 @@ public class NewsFeed extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Requirement requirement = mCustomAdapter.getItem(position);
-                Log.e("Data: ",requirement.toString());
                 NewsDetail detail = new NewsDetail();
                 Bundle bundle = new Bundle();
 

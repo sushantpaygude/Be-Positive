@@ -82,8 +82,6 @@ public class RequirementForm extends Fragment  {
         spinner_bloodGroup.setAdapter(adapterBloodGroup);
         spinner_areaName.setAdapter(adapterAreaName);
 
-        Log.e(LOG_TAG,"index: "+spinner_bloodGroup.getSelectedItemPosition());
-
         return rootView;
     }
 
@@ -112,6 +110,7 @@ public class RequirementForm extends Fragment  {
                 String userName = "rohit";
                 KeyReference objKeyReference = null;
 
+                Firebase.goOffline();
                 Firebase.goOnline();
                 Firebase fRoot = new Firebase(Constants.FIREBASE_URL);
                 Firebase fChildRequirement = fRoot.child(Constants.FIREBASE_LOCATION_REQUIREMENTS);
@@ -120,7 +119,6 @@ public class RequirementForm extends Fragment  {
                 String keyRequirement = fChildRequirement.push().getKey();
                 String keyReference = fChildReference.push().getKey();
                 Requirement objRequirement = new Requirement(bloodGroup,pinCode,userName,locName,keyRequirement);
-                Log.e("KEYS: ",keyReference+" "+keyRequirement);
                 objKeyReference = new KeyReference(keyRequirement);
 
                 // map POJO to hashmap
@@ -136,9 +134,10 @@ public class RequirementForm extends Fragment  {
                     public void onComplete(FirebaseError firebaseError, Firebase firebase) {
                         if(firebaseError!=null)
                             Log.e(LOG_TAG,firebaseError.getMessage());
+                        else
+                            Toast.makeText(getActivity(),"Done",Toast.LENGTH_SHORT).show();
                     }
                 });
-                Firebase.goOffline();
             }
             catch (Exception e){
                 Log.e(LOG_TAG,e.toString());
