@@ -53,6 +53,7 @@ public class FeedPendingDetail extends DialogFragment {
     void close(){
         dismiss();
     }
+
     @OnClick(R.id.btnAccept)
     void acceptRequest(){
         if(mObjReq != null){
