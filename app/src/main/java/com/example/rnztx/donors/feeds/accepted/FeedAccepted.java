@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.example.rnztx.donors.R;
-import com.example.rnztx.donors.models.CustomAdapter;
+import com.example.rnztx.donors.models.AdapterFeedList;
 import com.example.rnztx.donors.models.Requirement;
 import com.example.rnztx.donors.utils.Constants;
 import com.firebase.client.ChildEventListener;
@@ -28,7 +28,7 @@ import butterknife.ButterKnife;
 public class FeedAccepted extends Fragment {
     @Bind(R.id.listView_feed_accepted)
     ListView listViewFeedAccepted;
-    private CustomAdapter mCustomAdapter;
+    private AdapterFeedList mAdapterPendingList;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -36,9 +36,9 @@ public class FeedAccepted extends Fragment {
 //        // populate dummy data
         ArrayList<Requirement> adapterList = new ArrayList<>();
         adapterList.add(new Requirement());
-        mCustomAdapter = new CustomAdapter(getActivity(),adapterList);
+        mAdapterPendingList = new AdapterFeedList(getActivity(),adapterList, AdapterFeedList.TYPE_APPROVED_LIST);
         //clear dummy data
-        mCustomAdapter.clear();
+        mAdapterPendingList.clear();
         Firebase.setAndroidContext(getActivity());
     }
 
@@ -46,7 +46,7 @@ public class FeedAccepted extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fm_feed_accepted,container,false);
         ButterKnife.bind(this,rootView);
-        listViewFeedAccepted.setAdapter(mCustomAdapter);
+        listViewFeedAccepted.setAdapter(mAdapterPendingList);
         Firebase fRoot = new Firebase(Constants.FIREBASE_URL_REQUIREMENTS);
         fRoot.addChildEventListener(new ChildEventListener() {
             @Override
@@ -87,7 +87,7 @@ public class FeedAccepted extends Fragment {
         if (obj!=null){
             // if status accepted
             if (obj.getStatus())
-                mCustomAdapter.add(obj);
+                mAdapterPendingList.add(obj);
         }
     }
 }

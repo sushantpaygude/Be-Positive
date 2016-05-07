@@ -12,7 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.rnztx.donors.R;
-import com.example.rnztx.donors.models.CustomAdapter;
+import com.example.rnztx.donors.models.AdapterFeedList;
 import com.example.rnztx.donors.models.Requirement;
 import com.example.rnztx.donors.utils.Constants;
 import com.firebase.client.ChildEventListener;
@@ -32,7 +32,7 @@ public class FeedPending extends Fragment {
     @Bind(R.id.listView_news_feed)
     ListView newsFeedListView;
     private static String LOG_TAG = FeedPending.class.getSimpleName();
-    private CustomAdapter mCustomAdapter;
+    private AdapterFeedList mAdapterPendingList;
     private ArrayList<Requirement> arrayListData;
     private ArrayList<Requirement> dummyData;
     private static Firebase mFirebaseRef;
@@ -45,7 +45,7 @@ public class FeedPending extends Fragment {
         super.onCreate(savedInstanceState);
         dummyData = new ArrayList<>();
         dummyData.add(new Requirement("O+",415304,"user","swargate","key"));
-        mCustomAdapter = new CustomAdapter(getActivity(),dummyData);
+        mAdapterPendingList = new AdapterFeedList(getActivity(),dummyData, AdapterFeedList.TYPE_PENDING_LIST);
         Firebase.setAndroidContext(getActivity());
     }
 
@@ -53,7 +53,7 @@ public class FeedPending extends Fragment {
     public void onResume() {
         super.onResume();
         // to Avoid Duplicate Data
-        mCustomAdapter.clear();
+        mAdapterPendingList.clear();
     }
 
     @Override
@@ -64,7 +64,7 @@ public class FeedPending extends Fragment {
 
         View rootView =  inflater.inflate(R.layout.fragment_news_feed, container, false);
         ButterKnife.bind(this,rootView);
-        newsFeedListView.setAdapter(mCustomAdapter);
+        newsFeedListView.setAdapter(mAdapterPendingList);
 
         mFirebaseRef = new Firebase(Constants.FIREBASE_URL_REQUIREMENTS);
 
@@ -74,7 +74,7 @@ public class FeedPending extends Fragment {
                 Requirement requirements = dataSnapshot.getValue(Requirement.class);
                 if(requirements!=null){
                     if (!requirements.getStatus())
-                        mCustomAdapter.add(requirements);
+                        mAdapterPendingList.add(requirements);
                 }
             }
 
@@ -84,7 +84,7 @@ public class FeedPending extends Fragment {
                 if (obj!=null){
                     // if status accepted
                     if (obj.getStatus())
-                        mCustomAdapter.remove(obj);
+                        mAdapterPendingList.remove(obj);
                 }
             }
 
@@ -92,7 +92,7 @@ public class FeedPending extends Fragment {
             public void onChildRemoved(DataSnapshot dataSnapshot) {
                 Requirement obj = dataSnapshot.getValue(Requirement.class);
                 if (obj!=null){
-                    mCustomAdapter.remove(obj);
+                    mAdapterPendingList.remove(obj);
                 }
             }
 
@@ -110,7 +110,7 @@ public class FeedPending extends Fragment {
         newsFeedListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Requirement requirement = mCustomAdapter.getItem(position);
+                Requirement requirement = mAdapterPendingList.getItem(position);
                 FeedPendingDetail detail = new FeedPendingDetail();
                 Bundle bundle = new Bundle();
 
@@ -139,6 +139,6 @@ public class FeedPending extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mCustomAdapter.clear();
+        mAdapterPendingList.clear();
     }
 }
