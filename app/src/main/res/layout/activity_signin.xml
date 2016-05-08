@@ -5,15 +5,18 @@
     android:layout_height="match_parent">
 
     <!-- TODO: Update blank fragment layout -->
-    <com.google.android.gms.common.SignInButton
-        android:layout_gravity="center"
+    <Button
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:gravity="center"
         android:id="@+id/sign_in_button"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"/>
+        android:text="Sign In"
+        android:enabled="false"
+        />
 
     <Button
+        android:visibility="gone"
         android:layout_margin="@dimen/activity_horizontal_margin"
         android:id="@+id/btn_sign_out"
         android:layout_width="match_parent"

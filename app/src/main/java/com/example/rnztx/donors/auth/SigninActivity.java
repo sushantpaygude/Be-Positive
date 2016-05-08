@@ -4,31 +4,38 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 
+import com.example.rnztx.donors.MainActivity;
 import com.example.rnztx.donors.R;
+import com.example.rnztx.donors.utils.Utilities;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.common.api.Status;
 import com.squareup.picasso.Picasso;
 
-public class SigninActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener,
-        View.OnClickListener{
-    GoogleApiClient mGoogleApiClient;
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
+
+public class SigninActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener{
+    private GoogleApiClient mGoogleApiClient;
     private static final String LOG_TAG = SigninActivity.class.getSimpleName();
     private static final int RC_SIGN_IN = 9001;
     ImageView imgGoogleAvatar;
+    @Bind(R.id.sign_in_button) Button btnSignIn;
+    @Bind(R.id.btn_sign_out) Button btnSignOut;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signin);
-
+        ButterKnife.bind(this);
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -43,38 +50,36 @@ public class SigninActivity extends AppCompatActivity implements GoogleApiClient
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
 
+
         try {
-            findViewById(R.id.sign_in_button).setOnClickListener(this);
-            findViewById(R.id.btn_sign_out).setOnClickListener(this);
+            mGoogleApiClient.connect();
+            if (Utilities.isUserLogged(this))
+                signIn();
+
         }
         catch (Exception e){
             Log.e(LOG_TAG,e.getMessage());
         }
+        btnSignIn.setEnabled(true);
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.sign_in_button:
-                signIn();
-                break;
-            case R.id.btn_sign_out:
-                signOut();
-                break;
-        }
 
-    }
-
-    private void signIn() {
-//        Log.e(LOG_TAG,"Sign In");
+    @OnClick(R.id.sign_in_button)
+    public void signIn() {
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
+    @OnClick(R.id.btn_sign_out)
+    public void signOut(){
+        Utilities.signOut(this,mGoogleApiClient);
+        if (imgGoogleAvatar!=null)
+            imgGoogleAvatar.setImageBitmap(null);
+    }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-//        Log.e(LOG_TAG,"Handle REsult");
+
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
@@ -87,11 +92,18 @@ public class SigninActivity extends AppCompatActivity implements GoogleApiClient
         Log.d(LOG_TAG, "handleSignInResult:" + result.isSuccess());
         if (result.isSuccess()) {
             // Signed in successfully, show authenticated UI.
-            GoogleSignInAccount acct = result.getSignInAccount();
-            Log.e(LOG_TAG,"Success "+acct.getEmail()+"\n Profile "+acct.getPhotoUrl());
-            imgGoogleAvatar = (ImageView)findViewById(R.id.img_google_plus_avatar);
-            Picasso.with(this).load(acct.getPhotoUrl()).into(imgGoogleAvatar);
+            GoogleSignInAccount userAccount = result.getSignInAccount();
 
+//            only for debugging
+            imgGoogleAvatar = (ImageView)findViewById(R.id.img_google_plus_avatar);
+            Picasso.with(this).load(userAccount.getPhotoUrl()).into(imgGoogleAvatar);
+
+            // store User data
+            Utilities.storeUserCredential(userAccount,this);
+
+            // start Main Activity
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
         } else {
             // Signed out, show unauthenticated UI.
             Log.e(LOG_TAG,"Failed Signin");
@@ -99,23 +111,16 @@ public class SigninActivity extends AppCompatActivity implements GoogleApiClient
     }
 
 
-    public void signOut() {
-        try {
-            Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
-                    new ResultCallback<Status>() {
-                        @Override
-                        public void onResult(Status status) {
 
-                        }
-                    });
-
-        }catch (Exception e){
-            Log.e(LOG_TAG,e.getMessage());
-        }
-    }
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
         Log.e(LOG_TAG,connectionResult.getErrorMessage());
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mGoogleApiClient.disconnect();
     }
 }

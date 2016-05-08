@@ -6,6 +6,12 @@ import com.example.rnztx.donors.BuildConfig;
  * Created by rnztx on 2/2/16.
  */
 public class Constants {
+//    Shreed Preference Keys
+
+    public static final String PREF_USER_NAME = "user_name";
+    public static final String PREF_USER_EMAIL = "user_email";
+    public static final String PREF_USER_AVATAR = "user_avatar";
+    public static final String PREF_KEYS = "com.example.rnztx.donors.PREF_KEYS";
     public static final String ARG_SECTION_NUMBER = "section_number";
 
     public static final String FIREBASE_LOCATION_USERS = "users";
