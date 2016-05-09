@@ -7,7 +7,7 @@ import com.example.rnztx.donors.BuildConfig;
  */
 public class Constants {
 //    Shreed Preference Keys
-
+    public static final String PREF_DEFAULT_VALUE = "default.NA.value";
     public static final String PREF_USER_NAME = "user_name";
     public static final String PREF_USER_EMAIL = "user_email";
     public static final String PREF_USER_AVATAR = "user_avatar";

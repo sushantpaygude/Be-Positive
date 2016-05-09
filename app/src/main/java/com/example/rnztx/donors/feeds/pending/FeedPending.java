@@ -44,7 +44,7 @@ public class FeedPending extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         dummyData = new ArrayList<>();
-        dummyData.add(new Requirement("O+",415304,"user","swargate","key"));
+        dummyData.add(new Requirement("O+",415304,"swargate","key"));
         mAdapterPendingList = new AdapterFeedList(getActivity(),dummyData, AdapterFeedList.TYPE_PENDING_LIST);
         Firebase.setAndroidContext(getActivity());
     }

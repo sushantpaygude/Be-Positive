@@ -56,7 +56,7 @@ public class AdapterFeedList extends ArrayAdapter<Requirement> {
         }
         else if (listType == TYPE_APPROVED_LIST){
             ItemApproved itemApproved = new ItemApproved(rootView);
-            itemApproved.txtDonorName.setText(bloodRequirement.getUserId());
+            itemApproved.txtDonorName.setText(bloodRequirement.getRecipientId());
         }
 
 

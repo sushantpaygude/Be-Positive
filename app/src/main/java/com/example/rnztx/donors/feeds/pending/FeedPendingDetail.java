@@ -42,7 +42,7 @@ public class FeedPendingDetail extends DialogFragment {
         mObjReq = bundle.getParcelable(getString(R.string.news_detail));
         ButterKnife.bind(this,rootView);
 
-        txtUserName.setText(mObjReq.getUserId());
+        txtUserName.setText(mObjReq.getRecipientId());
         txtLocationName.setText(mObjReq.getLocName());
         txtBloodGroup.setText(mObjReq.getBloodGroup());
 

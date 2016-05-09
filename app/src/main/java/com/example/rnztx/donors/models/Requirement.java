@@ -13,48 +13,53 @@ public class Requirement implements Parcelable{
     private String bloodGroup;
     private int pinCode;
     private long date;
-    private String userId ;
+    private String recipientId;
     private boolean status = false;
     private String locName;
     private String objKey;
+    private String donorId;
+
     public Requirement(){
-        this("A",-1,"A","A","A");
+        this("A",-1,"A","A");
     }
 
     public String getObjKey() {
         return objKey;
     }
 
-    public Requirement(String bloodGroup, int pinCode, String userId, String locName, String objKey) {
+    public Requirement(String bloodGroup, int pinCode, String locName, String objKey) {
         this.bloodGroup = bloodGroup;
         this.pinCode = pinCode;
-        this.userId = userId;
         this.date = Calendar.getInstance().getTimeInMillis();
         this.locName = locName;
         this.objKey = objKey;
-
+        this.recipientId = "NA";
+        this.donorId = "NA";
     }
 
     @Override
     public void writeToParcel(Parcel parcel, int flags) {
         parcel.writeString(bloodGroup);
         parcel.writeInt(pinCode);
-        parcel.writeString(userId);
+        parcel.writeString(recipientId);
         parcel.writeLong(date);
         parcel.writeString(locName);
         parcel.writeByte(((byte)(status?1:0)));
         parcel.writeString(objKey);
+        parcel.writeString(donorId);
     }
+
     public Requirement(Parcel parcel){
         bloodGroup = parcel.readString();
         pinCode = parcel.readInt();
-        userId = parcel.readString();
+        recipientId = parcel.readString();
         date = parcel.readLong();
         locName = parcel.readString();
         status = parcel.readByte() != 0;
         objKey = parcel.readString();
-
+        donorId = parcel.readString();
     }
+
     public static final Parcelable.Creator<Requirement> CREATOR = new Parcelable.Creator<Requirement>(){
         @Override
         public Requirement createFromParcel(Parcel source) {
@@ -65,6 +70,12 @@ public class Requirement implements Parcelable{
             return new Requirement[size];
         }
     };
+    public void setDonorId(String donorId) {
+        this.donorId = donorId;
+    }
+    public void setRecipientId(String recipientId) {
+        this.recipientId = recipientId;
+    }
 
     public String getBloodGroup() {
         return bloodGroup;
@@ -78,8 +89,12 @@ public class Requirement implements Parcelable{
         return date;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getRecipientId() {
+        return recipientId;
+    }
+
+    public String getDonorId() {
+        return donorId;
     }
 
     public boolean getStatus() {return status;}
@@ -90,7 +105,7 @@ public class Requirement implements Parcelable{
 
     @Override
     public String toString() {
-        return getBloodGroup()+"---"+getLocName()+"---"+getPinCode()+"---"+getDate()+"---"+getUserId()+"---"+getStatus();
+        return getBloodGroup()+"---"+getLocName()+"---"+getPinCode()+"---"+getDate()+"---"+ getRecipientId()+"---"+getStatus();
     }
 
     @Override

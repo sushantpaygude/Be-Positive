@@ -17,6 +17,8 @@ import com.google.android.gms.common.api.Status;
 public class Utilities {
 
     private static final String LOG_TAG = Utilities.class.getSimpleName();
+    private static SharedPreferences mPrefs;
+
     public static void storeUserCredential(GoogleSignInAccount account, Activity activity){
         SharedPreferences sharedPref = activity.getSharedPreferences(Constants.PREF_KEYS,Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
@@ -27,6 +29,7 @@ public class Utilities {
         if (account.getDisplayName()!=null)
             editor.putString(Constants.PREF_USER_NAME,account.getDisplayName());
         editor.apply();
+        mPrefs = sharedPref;
     }
 
     public static boolean isUserLogged(Activity activity){
@@ -45,7 +48,19 @@ public class Utilities {
             editor.remove(Constants.PREF_USER_NAME);
         editor.apply();
     }
-
+    public static String getUserId(){
+        String email = getUserEmail();
+        return String.valueOf(email.hashCode());
+    }
+    public static String getUserEmail(){
+        return mPrefs.getString(Constants.PREF_USER_EMAIL,Constants.PREF_DEFAULT_VALUE);
+    }
+    public static String getUserDisplayName(){
+        return mPrefs.getString(Constants.PREF_USER_NAME,Constants.PREF_DEFAULT_VALUE);
+    }
+    public static String getUserPhotoUrl(){
+        return mPrefs.getString(Constants.PREF_USER_AVATAR,Constants.PREF_DEFAULT_VALUE);
+    }
     public static void signOut(Activity activity, GoogleApiClient mGoogleApiClient) {
         try {
             Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
@@ -63,6 +78,6 @@ public class Utilities {
     }
     public static void printUserData(Activity activity, String message){
         SharedPreferences pref = activity.getSharedPreferences(Constants.PREF_KEYS,Context.MODE_PRIVATE);
-        Log.e(LOG_TAG,message+pref.getString(Constants.PREF_USER_EMAIL,"NA"));
+        Log.e(LOG_TAG,message+pref.getString(Constants.PREF_USER_EMAIL,Constants.PREF_DEFAULT_VALUE));
     }
 }

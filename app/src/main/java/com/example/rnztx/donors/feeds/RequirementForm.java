@@ -17,6 +17,7 @@ import com.example.rnztx.donors.R;
 import com.example.rnztx.donors.models.KeyReference;
 import com.example.rnztx.donors.models.Requirement;
 import com.example.rnztx.donors.utils.Constants;
+import com.example.rnztx.donors.utils.Utilities;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.shaded.fasterxml.jackson.databind.ObjectMapper;
@@ -107,7 +108,7 @@ public class RequirementForm extends Fragment  {
             return;
         }else {
             try {
-                String userName = "rohit";
+                String userId = Utilities.getUserId();
                 KeyReference objKeyReference = null;
 
                 Firebase.goOffline();
@@ -118,7 +119,10 @@ public class RequirementForm extends Fragment  {
 
                 String keyRequirement = fChildRequirement.push().getKey();
                 String keyReference = fChildReference.push().getKey();
-                Requirement objRequirement = new Requirement(bloodGroup,pinCode,userName,locName,keyRequirement);
+                Requirement objRequirement = new Requirement(bloodGroup,pinCode,locName,keyRequirement);
+                objRequirement.setRecipientId(userId);
+                objRequirement.setDonorId("Unknown");
+
                 objKeyReference = new KeyReference(keyRequirement);
 
                 // map POJO to hashmap
