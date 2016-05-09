@@ -16,6 +16,9 @@ public class UserInfo {
         this.userPhotoUrl = userPhotoUrl;
     }
 
+    public UserInfo() {
+    }
+
     public String getMobileNumber() {
         return mobileNumber;
     }

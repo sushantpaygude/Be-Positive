@@ -20,7 +20,7 @@ public class Constants {
 
     public static final String FIREBASE_PROPERTY_PINCODE = "pinCode";
     public static final String FIREBASE_PROPERTY_BLOOD_GROUP = "bloodGroup";
-    public static final String FIREBASE_PROPERTY_USER_ID = "userId";
+    public static final String FIREBASE_PROPERTY_DONOR_ID = "donorId";
     public static final String FIREBASE_PROPERTY_DATE = "date";
     public static final String FIREBASE_PROPERTY_STATUS = "status";
 
@@ -31,5 +31,5 @@ public class Constants {
 
     public static final String FIREBASE_URL_REQUIREMENTS = FIREBASE_URL + "/"+FIREBASE_LOCATION_REQUIREMENTS;
     public static final String FIREBASE_URL_REFERENCES = FIREBASE_URL + "/"+ FIREBASE_LOCATION_REQ_REFERENCES ;
-
+    public static final String FIREBASE_URL_USERS = FIREBASE_URL + "/"+ FIREBASE_LOCATION_USERS;
 }

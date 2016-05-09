@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.example.rnztx.donors.R;
 import com.example.rnztx.donors.models.Requirement;
 import com.example.rnztx.donors.utils.Constants;
+import com.example.rnztx.donors.utils.Utilities;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 
@@ -65,6 +66,8 @@ public class FeedPendingDetail extends DialogFragment {
 
             Map<String,Object> mapObj = new HashMap<>();
             mapObj.put(Constants.FIREBASE_PROPERTY_STATUS,true);
+            mapObj.put(Constants.FIREBASE_PROPERTY_DONOR_ID, Utilities.getUserId());
+
             fChild.updateChildren(mapObj, new Firebase.CompletionListener() {
                 @Override
                 public void onComplete(FirebaseError firebaseError, Firebase firebase) {

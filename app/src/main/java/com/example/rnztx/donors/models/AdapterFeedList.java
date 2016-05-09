@@ -1,6 +1,7 @@
 package com.example.rnztx.donors.models;
 
 import android.app.Activity;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.rnztx.donors.R;
+import com.example.rnztx.donors.utils.Constants;
+import com.example.rnztx.donors.utils.Utilities;
+import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -25,13 +29,14 @@ public class AdapterFeedList extends ArrayAdapter<Requirement> {
     public static final int TYPE_APPROVED_LIST = 1;
 
     private static String LOG_TAG = AdapterFeedList.class.getSimpleName();
-
+    private  Context mContext;
     ArrayList<String> keySet = null;
     int listType;
    public AdapterFeedList(Activity activity, List<Requirement> requirement, int type){
         super(activity,0,requirement);
         keySet = new ArrayList<>();
        listType = type;
+       this.mContext = activity;
     }
 
     @Override
@@ -56,7 +61,14 @@ public class AdapterFeedList extends ArrayAdapter<Requirement> {
         }
         else if (listType == TYPE_APPROVED_LIST){
             ItemApproved itemApproved = new ItemApproved(rootView);
-            itemApproved.txtDonorName.setText(bloodRequirement.getRecipientId());
+            UserInfo userInfo = Utilities.userInfoMap.get(bloodRequirement.getDonorId());
+            itemApproved.txtDonorName.setText(userInfo.getUserDisplayName());
+            itemApproved.txtDonorPhoneNumber.setText(userInfo.getMobileNumber());
+
+            if (!userInfo.getUserPhotoUrl().equals(Constants.PREF_DEFAULT_VALUE))
+                Picasso.with(mContext)
+                    .load(userInfo.getUserPhotoUrl())
+                    .into(itemApproved.imgAvatar);
         }
 
 

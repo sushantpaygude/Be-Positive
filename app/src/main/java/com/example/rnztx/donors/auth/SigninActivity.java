@@ -12,6 +12,8 @@ import com.example.rnztx.donors.R;
 import com.example.rnztx.donors.models.UserInfo;
 import com.example.rnztx.donors.utils.Constants;
 import com.example.rnztx.donors.utils.Utilities;
+import com.firebase.client.ChildEventListener;
+import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.google.android.gms.auth.api.Auth;
@@ -109,16 +111,20 @@ public class SigninActivity extends AppCompatActivity implements GoogleApiClient
             // update user information on Firebase
             updateUserInfo();
 
+            //Store all Users Data Locally
+            storeUsersInfo();
+
             // start Main Activity
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
         } else {
             // Signed out, show unauthenticated UI.
-            Log.e(LOG_TAG,"Failed Signin");
+            Log.e(LOG_TAG,"Failed Sign in");
         }
     }
     private void updateUserInfo(){
-        Firebase.goOnline();
+//        Firebase.goOffline();
+//        Firebase.goOnline();
         Firebase fRoot = new Firebase(Constants.FIREBASE_URL);
         Firebase fUsersLocation = fRoot.child(Constants.FIREBASE_LOCATION_USERS);
         UserInfo currentUser = new UserInfo("70381254",Utilities.getUserEmail(),
@@ -131,14 +137,44 @@ public class SigninActivity extends AppCompatActivity implements GoogleApiClient
                         if (firebaseError!=null)
                             updateUserInfo();
                         // recursion Be Careful !!!
-                        else
-                            Firebase.goOffline();
+
                     }
                 });
 
     }
 
+    private void storeUsersInfo(){
+//        Log.e(LOG_TAG,"Storing user data: "+Constants.FIREBASE_URL_USERS);
+        Firebase usersRoot = new Firebase(Constants.FIREBASE_URL_USERS);
+        usersRoot.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                UserInfo userInfo = dataSnapshot.getValue(UserInfo.class);
+                Utilities.userInfoMap.put(dataSnapshot.getKey(),userInfo);
+            }
 
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
+
+    }
 
 
     @Override

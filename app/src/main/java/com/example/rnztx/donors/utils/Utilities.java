@@ -5,11 +5,15 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import com.example.rnztx.donors.models.UserInfo;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by rnztx on 8/5/16.
@@ -18,6 +22,7 @@ public class Utilities {
 
     private static final String LOG_TAG = Utilities.class.getSimpleName();
     private static SharedPreferences mPrefs;
+    public static Map<String, UserInfo> userInfoMap = new HashMap<>();
 
     public static void storeUserCredential(GoogleSignInAccount account, Activity activity){
         SharedPreferences sharedPref = activity.getSharedPreferences(Constants.PREF_KEYS,Context.MODE_PRIVATE);
