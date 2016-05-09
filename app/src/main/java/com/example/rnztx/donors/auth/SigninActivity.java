@@ -9,7 +9,11 @@ import android.widget.ImageView;
 
 import com.example.rnztx.donors.MainActivity;
 import com.example.rnztx.donors.R;
+import com.example.rnztx.donors.models.UserInfo;
+import com.example.rnztx.donors.utils.Constants;
 import com.example.rnztx.donors.utils.Utilities;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -36,6 +40,7 @@ public class SigninActivity extends AppCompatActivity implements GoogleApiClient
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signin);
         ButterKnife.bind(this);
+        Firebase.setAndroidContext(this);
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -101,6 +106,9 @@ public class SigninActivity extends AppCompatActivity implements GoogleApiClient
             // store User data
             Utilities.storeUserCredential(userAccount,this);
 
+            // update user information on Firebase
+            updateUserInfo();
+
             // start Main Activity
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
@@ -108,6 +116,26 @@ public class SigninActivity extends AppCompatActivity implements GoogleApiClient
             // Signed out, show unauthenticated UI.
             Log.e(LOG_TAG,"Failed Signin");
         }
+    }
+    private void updateUserInfo(){
+        Firebase.goOnline();
+        Firebase fRoot = new Firebase(Constants.FIREBASE_URL);
+        Firebase fUsersLocation = fRoot.child(Constants.FIREBASE_LOCATION_USERS);
+        UserInfo currentUser = new UserInfo("70381254",Utilities.getUserEmail(),
+                Utilities.getUserDisplayName(),Utilities.getUserPhotoUrl());
+
+        fUsersLocation.child(Utilities.getUserId())
+                .setValue(currentUser, new Firebase.CompletionListener() {
+                    @Override
+                    public void onComplete(FirebaseError firebaseError, Firebase firebase) {
+                        if (firebaseError!=null)
+                            updateUserInfo();
+                        // recursion Be Careful !!!
+                        else
+                            Firebase.goOffline();
+                    }
+                });
+
     }
 
 
