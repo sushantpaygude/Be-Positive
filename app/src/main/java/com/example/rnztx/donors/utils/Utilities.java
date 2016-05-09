@@ -20,9 +20,12 @@ public class Utilities {
     public static void storeUserCredential(GoogleSignInAccount account, Activity activity){
         SharedPreferences sharedPref = activity.getSharedPreferences(Constants.PREF_KEYS,Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putString(Constants.PREF_USER_AVATAR,account.getPhotoUrl().toString());
-        editor.putString(Constants.PREF_USER_EMAIL,account.getEmail());
-        editor.putString(Constants.PREF_USER_NAME,account.getDisplayName());
+        if (account.getPhotoUrl()!=null)
+            editor.putString(Constants.PREF_USER_AVATAR,account.getPhotoUrl().toString());
+        if (account.getEmail()!=null)
+            editor.putString(Constants.PREF_USER_EMAIL,account.getEmail());
+        if (account.getDisplayName()!=null)
+            editor.putString(Constants.PREF_USER_NAME,account.getDisplayName());
         editor.apply();
     }
 
@@ -32,11 +35,14 @@ public class Utilities {
     }
 
     private static void deleteUserCredentials(Activity activity){
-        SharedPreferences sharedPreferences = activity.getSharedPreferences(Constants.PREF_KEYS,Context.MODE_PRIVATE);
-        SharedPreferences.Editor  editor = sharedPreferences.edit();
-        editor.remove(Constants.PREF_USER_AVATAR);
-        editor.remove(Constants.PREF_USER_EMAIL);
-        editor.remove(Constants.PREF_USER_NAME);
+        SharedPreferences pref = activity.getSharedPreferences(Constants.PREF_KEYS,Context.MODE_PRIVATE);
+        SharedPreferences.Editor  editor = pref.edit();
+        if (pref.contains(Constants.PREF_USER_AVATAR))
+            editor.remove(Constants.PREF_USER_AVATAR);
+        if (pref.contains(Constants.PREF_USER_EMAIL))
+            editor.remove(Constants.PREF_USER_EMAIL);
+        if (pref.contains(Constants.PREF_USER_NAME))
+            editor.remove(Constants.PREF_USER_NAME);
         editor.apply();
     }
 
