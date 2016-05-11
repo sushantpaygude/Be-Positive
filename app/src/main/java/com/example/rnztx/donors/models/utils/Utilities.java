@@ -1,4 +1,4 @@
-package com.example.rnztx.donors.utils;
+package com.example.rnztx.donors.models.utils;
 
 import android.app.Activity;
 import android.content.Context;

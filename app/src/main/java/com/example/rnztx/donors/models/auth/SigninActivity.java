@@ -1,4 +1,4 @@
-package com.example.rnztx.donors.auth;
+package com.example.rnztx.donors.models.auth;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,8 +10,8 @@ import android.widget.ImageView;
 import com.example.rnztx.donors.MainActivity;
 import com.example.rnztx.donors.R;
 import com.example.rnztx.donors.models.UserInfo;
-import com.example.rnztx.donors.utils.Constants;
-import com.example.rnztx.donors.utils.Utilities;
+import com.example.rnztx.donors.models.utils.Constants;
+import com.example.rnztx.donors.models.utils.Utilities;
 import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;

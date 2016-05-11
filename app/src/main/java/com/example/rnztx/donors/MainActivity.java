@@ -15,11 +15,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.rnztx.donors.auth.SigninActivity;
+import com.example.rnztx.donors.models.auth.SigninActivity;
 import com.example.rnztx.donors.feeds.RequirementForm;
 import com.example.rnztx.donors.feeds.accepted.FeedAccepted;
 import com.example.rnztx.donors.feeds.pending.FeedPending;
-import com.example.rnztx.donors.utils.Utilities;
+import com.example.rnztx.donors.models.utils.Utilities;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.ConnectionResult;

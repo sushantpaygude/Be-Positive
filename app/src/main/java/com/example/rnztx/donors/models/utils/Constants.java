@@ -1,4 +1,4 @@
-package com.example.rnztx.donors.utils;
+package com.example.rnztx.donors.models.utils;
 
 import com.example.rnztx.donors.BuildConfig;
 

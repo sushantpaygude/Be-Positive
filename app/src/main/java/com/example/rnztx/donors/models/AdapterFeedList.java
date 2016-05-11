@@ -10,8 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.rnztx.donors.R;
-import com.example.rnztx.donors.utils.Constants;
-import com.example.rnztx.donors.utils.Utilities;
+import com.example.rnztx.donors.models.utils.Constants;
+import com.example.rnztx.donors.models.utils.Utilities;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;

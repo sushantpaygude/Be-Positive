@@ -15,8 +15,8 @@ import android.widget.Toast;
 import com.example.rnztx.donors.R;
 import com.example.rnztx.donors.feeds.chat.ChatActivity;
 import com.example.rnztx.donors.models.Requirement;
-import com.example.rnztx.donors.utils.Constants;
-import com.example.rnztx.donors.utils.Utilities;
+import com.example.rnztx.donors.models.utils.Constants;
+import com.example.rnztx.donors.models.utils.Utilities;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 
@@ -26,7 +26,6 @@ import java.util.Map;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
 /**
  * Created by rnztx on 3/3/16.
  */

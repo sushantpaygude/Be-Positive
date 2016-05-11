@@ -14,7 +14,7 @@ import android.widget.ListView;
 import com.example.rnztx.donors.R;
 import com.example.rnztx.donors.models.AdapterFeedList;
 import com.example.rnztx.donors.models.Requirement;
-import com.example.rnztx.donors.utils.Constants;
+import com.example.rnztx.donors.models.utils.Constants;
 import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
