@@ -20,7 +20,9 @@
             android:textSize="@dimen/locationName_textSize"
             android:id="@+id/txtDonorName"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            />
 
         <TextView
             android:textSize="@dimen/date_textSize"
