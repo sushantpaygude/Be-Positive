@@ -1,16 +1,19 @@
 package com.example.rnztx.donors.feeds.pending;
 
 import android.app.DialogFragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.rnztx.donors.R;
+import com.example.rnztx.donors.feeds.chat.ChatActivity;
 import com.example.rnztx.donors.models.Requirement;
 import com.example.rnztx.donors.utils.Constants;
 import com.example.rnztx.donors.utils.Utilities;
@@ -28,11 +31,13 @@ import butterknife.OnClick;
  * Created by rnztx on 3/3/16.
  */
 public class FeedPendingDetail extends DialogFragment {
+    private static final String LOG_TAG = FeedPendingDetail.class.getSimpleName();
     @Bind(R.id.txtUserName) TextView txtUserName;
-    @Bind(R.id.btn_close) Button btnClose;
+    @Bind(R.id.btnClose) ImageButton btnClose;
     @Bind(R.id.txtBloodGroup) TextView txtBloodGroup;
     @Bind(R.id.txtLocationName) TextView txtLocationName;
-    @Bind(R.id.btnAccept) Button btnAccept;
+    @Bind(R.id.btnAccept) ImageButton btnAccept;
+    @Bind(R.id.btnChat) ImageButton btnChat;
 
     private Requirement mObjReq = null;
     @Nullable
@@ -50,7 +55,7 @@ public class FeedPendingDetail extends DialogFragment {
         return rootView;
     }
 
-    @OnClick(R.id.btn_close)
+    @OnClick(R.id.btnClose)
     void close(){
         dismiss();
     }
@@ -58,29 +63,36 @@ public class FeedPendingDetail extends DialogFragment {
     @OnClick(R.id.btnAccept)
     void acceptRequest(){
         if(mObjReq != null){
-            Firebase.goOffline();
-            Firebase.goOnline();
+            try {
+                Firebase.goOffline();
+                Firebase.goOnline();
 
-            Firebase fRoot = new Firebase(Constants.FIREBASE_URL_REQUIREMENTS);
-            Firebase fChild = fRoot.child(mObjReq.getObjKey());
+                Firebase fRoot = new Firebase(Constants.FIREBASE_URL_REQUIREMENTS);
+                Firebase fChild = fRoot.child(mObjReq.getObjKey());
 
-            Map<String,Object> mapObj = new HashMap<>();
-            mapObj.put(Constants.FIREBASE_PROPERTY_STATUS,true);
-            mapObj.put(Constants.FIREBASE_PROPERTY_DONOR_ID, Utilities.getUserId());
+                Map<String,Object> mapObj = new HashMap<>();
+                mapObj.put(Constants.FIREBASE_PROPERTY_STATUS,true);
+                mapObj.put(Constants.FIREBASE_PROPERTY_DONOR_ID, Utilities.getUserId());
 
-            fChild.updateChildren(mapObj, new Firebase.CompletionListener() {
-                @Override
-                public void onComplete(FirebaseError firebaseError, Firebase firebase) {
-                    if (firebaseError!=null)
-                        Toast.makeText(getActivity(),"Failed",Toast.LENGTH_SHORT).show();
-                    else{
-                        Toast.makeText(getActivity(),"Accepted",Toast.LENGTH_LONG).show();
-                        dismiss();
+                fChild.updateChildren(mapObj, new Firebase.CompletionListener() {
+                    @Override
+                    public void onComplete(FirebaseError firebaseError, Firebase firebase) {
+                        if (firebaseError!=null)
+                            Toast.makeText(getActivity(),"Failed",Toast.LENGTH_SHORT).show();
+                        else{
+                            Toast.makeText(getActivity(),"Accepted",Toast.LENGTH_LONG).show();
+                            dismiss();
+                        }
                     }
-
-                }
-            });
+                });
+            }catch (Exception e){
+                Log.e(LOG_TAG,e.toString());
+            }
         }
     }
-
+    @OnClick(R.id.btnChat)
+    void startChat(){
+        Intent intent = new Intent(getActivity(), ChatActivity.class);
+        startActivity(intent);
+    }
 }

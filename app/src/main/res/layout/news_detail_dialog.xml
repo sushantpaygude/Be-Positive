@@ -1,51 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:orientation="vertical"
         android:padding="@dimen/activity_horizontal_margin"
         >
         <TextView
             android:id="@+id/txtUserName"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/txtBloodGroup"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
             android:id="@+id/txtLocationName"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:weightSum="2"
             >
-            <Button
+            <ImageButton
                 android:id="@+id/btnAccept"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="Accept"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_accept"
+                android:background="@android:color/transparent"
+                android:layout_gravity="center"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
                 />
-            <Button
-                android:id="@+id/btnReject"
+            <ImageButton
+                android:id="@+id/btnClose"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="Reject"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_close"
+                android:background="@android:color/transparent"
+                android:layout_gravity="center"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                />
+            <ImageButton
+                android:id="@+id/btnChat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_chat"
+                android:background="@android:color/transparent"
+                android:layout_gravity="center"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                />
+            <ImageButton
+                android:id="@+id/btnCallback"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_call"
+                android:background="@android:color/transparent"
+                android:layout_gravity="center"
                 />
         </LinearLayout>
-        <Button
-            android:id="@+id/btn_close"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="CLose"
-            android:layout_alignParentBottom="true"
-            />
+
     </LinearLayout>
