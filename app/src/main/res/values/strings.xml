@@ -6,7 +6,7 @@
     <string name="title_activity_main">Donors++</string>
     <string name="action_sign_out">Sign Out</string>
     <string name="section_format">All Accepted Requests Goes Here</string>
-    <string name="news_detail">news_detail</string>
+    <string name="feed_detail">requirement_detail</string>
 
     <string name="requirement_status_accepted">Accepted</string>
     <string name="requirement_status_pending">Pending</string>

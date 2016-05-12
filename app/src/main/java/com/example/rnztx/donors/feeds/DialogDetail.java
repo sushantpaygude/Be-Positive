@@ -1,4 +1,4 @@
-package com.example.rnztx.donors.feeds.pending;
+package com.example.rnztx.donors.feeds;
 
 import android.app.DialogFragment;
 import android.content.Intent;
@@ -29,8 +29,8 @@ import butterknife.OnClick;
 /**
  * Created by rnztx on 3/3/16.
  */
-public class FeedPendingDetail extends DialogFragment {
-    private static final String LOG_TAG = FeedPendingDetail.class.getSimpleName();
+public class DialogDetail extends DialogFragment {
+    private static final String LOG_TAG = DialogDetail.class.getSimpleName();
     @Bind(R.id.txtUserName) TextView txtUserName;
     @Bind(R.id.btnClose) ImageButton btnClose;
     @Bind(R.id.txtBloodGroup) TextView txtBloodGroup;
@@ -44,7 +44,7 @@ public class FeedPendingDetail extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.news_detail_dialog,container);
         Bundle bundle = getArguments();
-        mObjReq = bundle.getParcelable(getString(R.string.news_detail));
+        mObjReq = bundle.getParcelable(getString(R.string.feed_detail));
         ButterKnife.bind(this,rootView);
 
         txtUserName.setText(mObjReq.getRecipientId());
@@ -92,6 +92,9 @@ public class FeedPendingDetail extends DialogFragment {
     @OnClick(R.id.btnChat)
     void startChat(){
         Intent intent = new Intent(getActivity(), ChatActivity.class);
+        Bundle arguments = new Bundle();
+        arguments.putString(Constants.EXTRA_TARGET_USERID,mObjReq.getDonorId());
+        intent.putExtras(arguments);
         startActivity(intent);
     }
 }

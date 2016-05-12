@@ -1,17 +1,21 @@
 package com.example.rnztx.donors.feeds.accepted;
 
+import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.rnztx.donors.R;
+import com.example.rnztx.donors.feeds.DialogDetail;
 import com.example.rnztx.donors.models.AdapterFeedList;
 import com.example.rnztx.donors.models.Requirement;
 import com.example.rnztx.donors.models.utils.Constants;
+import com.example.rnztx.donors.models.utils.Utilities;
 import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -74,6 +78,23 @@ public class FeedAccepted extends Fragment {
 
             }
         });
+        listViewFeedAccepted.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Requirement requirement = mAdapterPendingList.getItem(position);
+                DialogDetail detail = new DialogDetail();
+                Bundle bundle = new Bundle();
+
+                String EXTRA_NAME = getString(R.string.feed_detail);
+                bundle.putParcelable(EXTRA_NAME,requirement);
+                detail.setArguments(bundle);
+
+                // launch dialog box
+                FragmentManager fm = getActivity().getFragmentManager();
+                detail.show(fm,"oll");
+
+            }
+        });
         return rootView;
     }
     public static FeedAccepted newInstance() {
@@ -86,7 +107,7 @@ public class FeedAccepted extends Fragment {
         Requirement obj = dataSnapshot.getValue(Requirement.class);
         if (obj!=null){
             // if status accepted
-            if (obj.getStatus())
+            if (obj.getStatus() && obj.getRecipientId().equals(Utilities.getUserId()))
                 mAdapterPendingList.add(obj);
         }
     }

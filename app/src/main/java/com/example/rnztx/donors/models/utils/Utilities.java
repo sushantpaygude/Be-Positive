@@ -53,19 +53,24 @@ public class Utilities {
             editor.remove(Constants.PREF_USER_NAME);
         editor.apply();
     }
+
     public static String getUserId(){
         String email = getUserEmail();
         return String.valueOf(email.hashCode());
     }
+
     public static String getUserEmail(){
         return mPrefs.getString(Constants.PREF_USER_EMAIL,Constants.PREF_DEFAULT_VALUE);
     }
+
     public static String getUserDisplayName(){
         return mPrefs.getString(Constants.PREF_USER_NAME,Constants.PREF_DEFAULT_VALUE);
     }
+
     public static String getUserPhotoUrl(){
         return mPrefs.getString(Constants.PREF_USER_AVATAR,Constants.PREF_DEFAULT_VALUE);
     }
+
     public static void signOut(Activity activity, GoogleApiClient mGoogleApiClient) {
         try {
             Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
@@ -81,8 +86,19 @@ public class Utilities {
             Log.e(LOG_TAG,e.toString());
         }
     }
+
     public static void printUserData(Activity activity, String message){
         SharedPreferences pref = activity.getSharedPreferences(Constants.PREF_KEYS,Context.MODE_PRIVATE);
         Log.e(LOG_TAG,message+pref.getString(Constants.PREF_USER_EMAIL,Constants.PREF_DEFAULT_VALUE));
+    }
+
+    public static String getChatId(String targetUserId){
+        String loggedUserId = getUserId();
+        int result = targetUserId.compareTo(loggedUserId);
+        if ( result <= 0){
+            return targetUserId.concat("_").concat(loggedUserId);
+        }
+        else
+            return loggedUserId.concat("_").concat(targetUserId);
     }
 }

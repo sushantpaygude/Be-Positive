@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.rnztx.donors.R;
+import com.example.rnztx.donors.feeds.DialogDetail;
 import com.example.rnztx.donors.models.AdapterFeedList;
 import com.example.rnztx.donors.models.Requirement;
 import com.example.rnztx.donors.models.utils.Constants;
@@ -111,18 +112,16 @@ public class FeedPending extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Requirement requirement = mAdapterPendingList.getItem(position);
-                FeedPendingDetail detail = new FeedPendingDetail();
+                DialogDetail detail = new DialogDetail();
                 Bundle bundle = new Bundle();
 
-                String EXTRA_NAME = getString(R.string.news_detail);
+                String EXTRA_NAME = getString(R.string.feed_detail);
                 bundle.putParcelable(EXTRA_NAME,requirement);
                 detail.setArguments(bundle);
 
                 // launch dialog box
                 FragmentManager fm = getActivity().getFragmentManager();
                 detail.show(fm,"oll");
-
-//                FeedPendingDetail newsDetail = new FeedPendingDetail();
 
             }
         });

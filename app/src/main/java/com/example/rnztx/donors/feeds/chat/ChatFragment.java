@@ -14,11 +14,16 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 
 import com.example.rnztx.donors.R;
+import com.example.rnztx.donors.models.ChatMessage;
+import com.example.rnztx.donors.models.utils.Constants;
+import com.example.rnztx.donors.models.utils.Utilities;
+import com.firebase.client.Firebase;
 
 import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -31,6 +36,8 @@ public class ChatFragment extends Fragment {
     @Bind(R.id.edtx_new_message) EditText edtxNewMesssage;
     @Bind(R.id.list_view_chats) ListView listViewChats;
     ArrayList<String> mList ;
+    String mDonorId = "879322342";
+    Firebase mFirebaseNewMessage;
 
     public ChatFragment() {
         // Required empty public constructor
@@ -41,7 +48,10 @@ public class ChatFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mList = new ArrayList<>();
         mArrayAdapter = new ArrayAdapter(getActivity(),R.layout.chat_items,mList);
-
+        Bundle arguments = getActivity().getIntent().getExtras();
+        if (arguments.containsKey(Constants.EXTRA_TARGET_USERID)){
+            mDonorId = arguments.getString(Constants.EXTRA_TARGET_USERID);
+        }
     }
 
     @Override
@@ -51,12 +61,21 @@ public class ChatFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.chat_fragment, container, false);
         ButterKnife.bind(this,rootView);
         listViewChats.setAdapter(mArrayAdapter);
-        mList.add("Rohit");
-        mList.add("Rohan");
-        mArrayAdapter.add("Where");
 
-        Log.e(LOG_TAG,"Size: "+listViewChats.getCount());
+        Firebase firebase = new Firebase(Constants.FIREBASE_URL).child(Constants.FIREBASE_LOCATION_CHATMESSAGES);
+        mFirebaseNewMessage = firebase.child(Utilities.getChatId(mDonorId));
+
+
         return rootView;
+    }
+
+    @OnClick(R.id.img_send_chat_message)
+    public void onMessageSend(){
+        String newMessage = edtxNewMesssage.getText().toString();
+        ChatMessage newMessageObj = new ChatMessage(Utilities.getUserId(),newMessage);
+        String uniqueKey = mFirebaseNewMessage.push().getKey();
+        mFirebaseNewMessage.child(uniqueKey).setValue(newMessageObj);
+        Log.e(LOG_TAG,"message send");
     }
 
 }
