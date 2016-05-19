@@ -4,7 +4,6 @@ package com.example.rnztx.donors.feeds.chat;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +16,10 @@ import com.example.rnztx.donors.R;
 import com.example.rnztx.donors.models.ChatMessage;
 import com.example.rnztx.donors.models.utils.Constants;
 import com.example.rnztx.donors.models.utils.Utilities;
+import com.firebase.client.ChildEventListener;
+import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
 
 import java.util.ArrayList;
 
@@ -65,7 +67,35 @@ public class ChatFragment extends Fragment {
         Firebase firebase = new Firebase(Constants.FIREBASE_URL).child(Constants.FIREBASE_LOCATION_CHATMESSAGES);
         mFirebaseNewMessage = firebase.child(Utilities.getChatId(mDonorId));
 
+        mFirebaseNewMessage.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                ChatMessage incomingMessage = dataSnapshot.getValue(ChatMessage.class);
+                String userName = Utilities.userInfoMap.get(incomingMessage.getUserId()).getUserDisplayName();
+                String message = userName + " :\t" +incomingMessage.getMessage();
+                mArrayAdapter.add(message);
+            }
 
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
         return rootView;
     }
 
@@ -74,8 +104,14 @@ public class ChatFragment extends Fragment {
         String newMessage = edtxNewMesssage.getText().toString();
         ChatMessage newMessageObj = new ChatMessage(Utilities.getUserId(),newMessage);
         String uniqueKey = mFirebaseNewMessage.push().getKey();
-        mFirebaseNewMessage.child(uniqueKey).setValue(newMessageObj);
-        Log.e(LOG_TAG,"message send");
+        mFirebaseNewMessage.child(uniqueKey).setValue(newMessageObj, new Firebase.CompletionListener() {
+            @Override
+            public void onComplete(FirebaseError firebaseError, Firebase firebase) {
+                if (firebaseError==null){
+                    edtxNewMesssage.setText("");
+                }
+            }
+        });
     }
 
 }

@@ -130,8 +130,6 @@ public class FeedPending extends Fragment {
 
     public static FeedPending newInstance(){
         FeedPending fragment = new FeedPending();
-//        Bundle args = new Bundle();
-//        args.putInt(Constants.ARG_SECTION_NUMBER,position);
         return fragment;
     }
 

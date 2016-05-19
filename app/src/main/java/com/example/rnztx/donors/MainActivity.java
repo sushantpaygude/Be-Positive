@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.rnztx.donors.feeds.chat.Conversations;
 import com.example.rnztx.donors.models.auth.SigninActivity;
 import com.example.rnztx.donors.feeds.RequirementForm;
 import com.example.rnztx.donors.feeds.accepted.FeedAccepted;
@@ -158,7 +159,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                     return FeedAccepted.newInstance();
                 case 2:
                     return RequirementForm.newInstance(position + 1);
-
+                case 3:
+                    return Conversations.newInstance();
                 default:
                     return new Fragment();
             }
@@ -168,7 +170,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 3;
+            return 4;
         }
 
         @Override
@@ -179,7 +181,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                 case 1:
                     return "Accepted";
                 case 2:
-                    return "Create New";
+                    return "New";
+                case 3:
+                    return "Messages";
             }
             return null;
         }
