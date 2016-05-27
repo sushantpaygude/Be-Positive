@@ -15,7 +15,6 @@ import com.example.rnztx.donors.feeds.DialogDetail;
 import com.example.rnztx.donors.models.AdapterFeedList;
 import com.example.rnztx.donors.models.Requirement;
 import com.example.rnztx.donors.models.utils.Constants;
-import com.example.rnztx.donors.models.utils.Utilities;
 import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -30,8 +29,7 @@ import butterknife.ButterKnife;
  * Created by rnztx on 19/3/16.
  */
 public class FeedAccepted extends Fragment {
-    @Bind(R.id.listView_feed_accepted)
-    ListView listViewFeedAccepted;
+    @Bind(R.id.listView_feed_accepted) ListView listViewFeedAccepted;
     private AdapterFeedList mAdapterPendingList;
 
     @Override
@@ -92,7 +90,6 @@ public class FeedAccepted extends Fragment {
                 // launch dialog box
                 FragmentManager fm = getActivity().getFragmentManager();
                 detail.show(fm,"oll");
-
             }
         });
         return rootView;
@@ -106,8 +103,10 @@ public class FeedAccepted extends Fragment {
     protected void addToListView(DataSnapshot dataSnapshot){
         Requirement obj = dataSnapshot.getValue(Requirement.class);
         if (obj!=null){
-            // if status accepted
-            if (obj.getStatus() && obj.getRecipientId().equals(Utilities.getUserId()))
+//            // if logged users request is Accepted
+//            if (obj.getStatus() && obj.getRecipientId().equals(Utilities.getUserId()))
+//                mAdapterPendingList.add(obj);
+            if (obj.getStatus())
                 mAdapterPendingList.add(obj);
         }
     }

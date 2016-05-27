@@ -22,11 +22,11 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Conversations extends Fragment {
+public class MessageList extends Fragment {
     @Bind(R.id.listView_chat_messages) ListView listViewChatMessages;
     ArrayAdapter mArrayAdapter;
 
-    public Conversations() {
+    public MessageList() {
         // Required empty public constructor
     }
 
@@ -43,11 +43,13 @@ public class Conversations extends Fragment {
         View rootView =  inflater.inflate(R.layout.conversations_fragment, container, false);
         ButterKnife.bind(this,rootView);
         listViewChatMessages.setAdapter(mArrayAdapter);
+        mArrayAdapter.add("ROhit");
+        mArrayAdapter.add("Karadkar");
         Firebase root = new Firebase(Constants.FIREBASE_URL).child(Constants.FIREBASE_LOCATION_CHATMESSAGES);
         return rootView;
     }
-    public static Conversations newInstance(){
-        return new Conversations();
+    public static MessageList newInstance(){
+        return new MessageList();
     }
 
 }

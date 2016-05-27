@@ -15,7 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.rnztx.donors.feeds.chat.Conversations;
+import com.example.rnztx.donors.feeds.chat.MessageList;
 import com.example.rnztx.donors.models.auth.SigninActivity;
 import com.example.rnztx.donors.feeds.RequirementForm;
 import com.example.rnztx.donors.feeds.accepted.FeedAccepted;
@@ -160,7 +160,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                 case 2:
                     return RequirementForm.newInstance(position + 1);
                 case 3:
-                    return Conversations.newInstance();
+                    return MessageList.newInstance();
                 default:
                     return new Fragment();
             }
