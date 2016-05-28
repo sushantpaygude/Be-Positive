@@ -115,7 +115,7 @@ public class SigninActivity extends AppCompatActivity implements GoogleApiClient
             Utilities.storeUserCredential(userAccount,this);
 
             // update user information on Firebase
-            updateUserInfo();
+            uploadUserInfo();
 
             //Store all Users Data Locally
             storeUsersInfo();
@@ -129,22 +129,24 @@ public class SigninActivity extends AppCompatActivity implements GoogleApiClient
             Log.e(LOG_TAG,"Failed Sign in");
         }
     }
-    private void updateUserInfo(){
+    private void uploadUserInfo(){
 //        Firebase.goOffline();
 //        Firebase.goOnline();
         Firebase fRoot = new Firebase(Constants.FIREBASE_URL);
         Firebase fUsersLocation = fRoot.child(Constants.FIREBASE_LOCATION_USERS);
-        UserInfo currentUser = new UserInfo("70381254",Utilities.getUserEmail(),
-                Utilities.getUserDisplayName(),Utilities.getUserPhotoUrl());
+        UserInfo currentUser = new UserInfo(
+                Utilities.getUserEmail(),
+                Utilities.getUserDisplayName(),
+                Utilities.getUserPhotoUrl());
 
-        fUsersLocation.child(Utilities.getUserId())
+        fUsersLocation
+                .child(Utilities.getUserId())
                 .setValue(currentUser, new Firebase.CompletionListener() {
                     @Override
                     public void onComplete(FirebaseError firebaseError, Firebase firebase) {
                         if (firebaseError!=null)
-                            updateUserInfo();
+                            uploadUserInfo();
                         // recursion Be Careful !!!
-
                     }
                 });
 

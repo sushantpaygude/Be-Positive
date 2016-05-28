@@ -14,6 +14,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.rnztx.donors.R;
+import com.example.rnztx.donors.models.UserInfo;
+import com.example.rnztx.donors.models.utils.Constants;
 import com.example.rnztx.donors.models.utils.Utilities;
 import com.firebase.client.Firebase;
 import com.squareup.picasso.Picasso;
@@ -44,6 +46,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        Firebase.setAndroidContext(this);
         setContentView(R.layout.activity_register);
         setTitle("Be Positive");
         tv1 = (TextView) findViewById(R.id.txtName1);
@@ -164,7 +167,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         txtPhone.setTypeface(typeface);
         txtBloodgroup.setTypeface(typeface);
         txtPincode.setTypeface(typeface);
-
+        txtPhone.setText("7038124567");
+        txtAddress.setText("Kadegaon");
     }
 
     public void onClick(View v)
@@ -174,6 +178,16 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 storedata();
                 if(STATUS_PHONE==true && STATUS_ADDRESS==true)
                 {
+                    Firebase fRoot = new Firebase(Constants.FIREBASE_URL);
+//                    Firebase fUsersLocation = fRoot.child(Constants.FIREBASE_LOCATION_USERS);
+                    UserInfo userInfo = Utilities.userInfoMap.get(Utilities.getUserId());
+                    userInfo.setAddress(faddress);
+                    userInfo.setBloodGroup(fbloodgroup);
+                    userInfo.setMobileNumber(fphone);
+                    userInfo.setPinCode(fpincode);
+                    fRoot.child(Constants.FIREBASE_LOCATION_USERS + "/" +userInfo.getUserEmail().hashCode())
+                    .setValue(userInfo);
+
 //                    Intent i=new Intent(this,MainActivity.class);
 //                    startActivity(i);
                     Log.e(LOG_TAG,faddress+" "+fbloodgroup);
@@ -195,7 +209,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         Firebase ref = new Firebase("https://donordb.firebaseIO.com//web/data");
 
         fname = txtName.getText().toString().trim();
-//        femail = txtEmail.getText().toString().trim();
+        femail = txtEmail.getText().toString().trim();
         faddress = txtAddress.getText().toString().trim();
         fphone = txtPhone.getText().toString().trim();
         fbloodgroup = bgSpinner.getSelectedItem().toString();
