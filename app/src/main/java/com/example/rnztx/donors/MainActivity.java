@@ -16,7 +16,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.rnztx.donors.feeds.chat.MessageList;
-import com.example.rnztx.donors.models.auth.SigninActivity;
+import com.example.rnztx.donors.feeds.intro.auth.SigninActivity;
 import com.example.rnztx.donors.feeds.RequirementForm;
 import com.example.rnztx.donors.feeds.accepted.FeedAccepted;
 import com.example.rnztx.donors.feeds.pending.FeedPending;

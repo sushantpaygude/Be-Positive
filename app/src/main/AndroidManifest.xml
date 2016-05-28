@@ -14,7 +14,7 @@
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme" />
-        <activity android:name=".models.auth.SigninActivity"/>
+        <activity android:name=".feeds.intro.auth.SigninActivity"/>
         <activity android:name=".feeds.chat.ChatActivity" />
 
         <activity android:name=".feeds.intro.SplashScreenActivity">

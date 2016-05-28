@@ -1,11 +1,13 @@
-package com.example.rnztx.donors.models.auth;
+package com.example.rnztx.donors.feeds.intro.auth;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.rnztx.donors.MainActivity;
 import com.example.rnztx.donors.R;
@@ -36,6 +38,7 @@ public class SigninActivity extends AppCompatActivity implements GoogleApiClient
     ImageView imgGoogleAvatar;
     @Bind(R.id.sign_in_button) Button btnSignIn;
     @Bind(R.id.btn_sign_out) Button btnSignOut;
+    @Bind(R.id.txt_project_title) TextView txtProjectTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +70,9 @@ public class SigninActivity extends AppCompatActivity implements GoogleApiClient
         catch (Exception e){
             Log.e(LOG_TAG,e.getMessage());
         }
+        Typeface typeface=Typeface.createFromAsset(getAssets(), "fonts/SimplyRoundedBold.ttf");
+        txtProjectTitle.setTypeface(typeface);
+
         btnSignIn.setEnabled(true);
     }
 

@@ -1,6 +1,7 @@
 package com.example.rnztx.donors.feeds.intro;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -8,7 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
 import com.example.rnztx.donors.R;
-import com.example.rnztx.donors.models.auth.SigninActivity;
+import com.example.rnztx.donors.feeds.intro.auth.SigninActivity;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
@@ -16,7 +17,7 @@ public class SplashScreenActivity extends AppCompatActivity {
     private static final int STOPSPLASH = 0;
     //time duration in millisecond for which your splash screen should visible to
     //user. here i have taken half second
-    private static final long SPLASHTIME = 5000;
+    private static final long SPLASHTIME = 5;
     TextView bannertxt;
     //handler for splash screen
     private Handler splashHandler = new Handler() {
@@ -42,8 +43,8 @@ public class SplashScreenActivity extends AppCompatActivity {
 
         bannertxt=(TextView)findViewById(R.id.banner);
         bannertxt.setText("Be Positive");
-//        Typeface typeface=Typeface.createFromAsset(getAssets(), "fonts/SimplyRoundedBold.ttf");
-//        bannertxt.setTypeface(typeface);
+        Typeface typeface=Typeface.createFromAsset(getAssets(), "fonts/SimplyRoundedBold.ttf");
+        bannertxt.setTypeface(typeface);
         //Generating message and sending it to splash handle
         Message msg = new Message();
         msg.what = STOPSPLASH;
