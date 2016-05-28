@@ -16,7 +16,7 @@
             android:theme="@style/AppTheme" />
         <activity android:name=".feeds.intro.auth.SigninActivity"/>
         <activity android:name=".feeds.chat.ChatActivity" />
-
+        <activity android:name=".feeds.intro.RegisterActivity" />
         <activity android:name=".feeds.intro.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
