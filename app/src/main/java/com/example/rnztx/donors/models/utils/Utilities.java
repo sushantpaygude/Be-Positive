@@ -13,7 +13,9 @@ import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by rnztx on 8/5/16.
@@ -23,6 +25,7 @@ public class Utilities {
     private static final String LOG_TAG = Utilities.class.getSimpleName();
     private static SharedPreferences mPrefs;
     public static Map<String, UserInfo> userInfoMap = new HashMap<>();
+    public static Set<String> userChatListSet = new HashSet<>();
 
     public static void storeUserCredential(GoogleSignInAccount account, Activity activity){
         SharedPreferences sharedPref = activity.getSharedPreferences(Constants.PREF_KEYS,Context.MODE_PRIVATE);

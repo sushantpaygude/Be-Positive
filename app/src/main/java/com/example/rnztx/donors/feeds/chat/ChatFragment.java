@@ -38,7 +38,7 @@ public class ChatFragment extends Fragment {
     @Bind(R.id.edtx_new_message) EditText edtxNewMesssage;
     @Bind(R.id.list_view_chats) ListView listViewChats;
     ArrayList<String> mList ;
-    String mDonorId = "879322342";
+    String mTargetUserId = "879322342";
     Firebase mFirebaseNewMessage;
 
     public ChatFragment() {
@@ -49,11 +49,18 @@ public class ChatFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mList = new ArrayList<>();
-        mArrayAdapter = new ArrayAdapter(getActivity(),R.layout.chat_items,mList);
+        mArrayAdapter = new ArrayAdapter(getActivity(),R.layout.item_chat_messages,mList);
         Bundle arguments = getActivity().getIntent().getExtras();
         if (arguments.containsKey(Constants.EXTRA_TARGET_USERID)){
-            mDonorId = arguments.getString(Constants.EXTRA_TARGET_USERID);
+            mTargetUserId = arguments.getString(Constants.EXTRA_TARGET_USERID);
         }
+
+        // set target userName to Actionbar Title
+        getActivity().setTitle(
+                Utilities.userInfoMap
+                        .get(mTargetUserId) // get UserInfo Obj
+                        .getUserDisplayName() // get his name
+        );
     }
 
     @Override
@@ -65,14 +72,14 @@ public class ChatFragment extends Fragment {
         listViewChats.setAdapter(mArrayAdapter);
 
         Firebase firebase = new Firebase(Constants.FIREBASE_URL).child(Constants.FIREBASE_LOCATION_CHATMESSAGES);
-        mFirebaseNewMessage = firebase.child(Utilities.getChatId(mDonorId));
+        mFirebaseNewMessage = firebase.child(Utilities.getChatId(mTargetUserId));
 
         mFirebaseNewMessage.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 ChatMessage incomingMessage = dataSnapshot.getValue(ChatMessage.class);
                 String userName = Utilities.userInfoMap.get(incomingMessage.getUserId()).getUserDisplayName();
-                String message = userName + " :\t" +incomingMessage.getMessage();
+                String message = userName.split(" ")[0] + " :\t\t" +incomingMessage.getMessage();
                 mArrayAdapter.add(message);
             }
 

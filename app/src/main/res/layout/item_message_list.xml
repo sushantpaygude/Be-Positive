@@ -2,4 +2,5 @@
 <TextView
     android:id="@+id/list_item_conversations"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent"/>
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:textSize="@dimen/standard_textSize"/>

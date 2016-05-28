@@ -5,7 +5,8 @@
     tools:context="com.example.rnztx.donors.feeds.chat.MessageList">
 
     <ListView
-        android:id="@+id/listView_chat_messages"
+        android:layout_margin="@dimen/activity_vertical_margin"
+        android:id="@+id/listView_message_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </ListView>

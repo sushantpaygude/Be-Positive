@@ -34,4 +34,14 @@ public class UserInfo {
     public String getUserPhotoUrl() {
         return userPhotoUrl;
     }
+
+    @Override
+    public String toString() {
+        return "UserInfo{" +
+                "mobileNumber='" + mobileNumber + '\'' +
+                ", userEmail='" + userEmail + '\'' +
+                ", userDisplayName='" + userDisplayName + '\'' +
+                ", userPhotoUrl='" + userPhotoUrl + '\'' +
+                '}';
+    }
 }
