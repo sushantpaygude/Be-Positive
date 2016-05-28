@@ -13,15 +13,16 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme"></activity>
-        <activity android:name=".models.auth.SigninActivity">
+            android:theme="@style/AppTheme" />
+        <activity android:name=".models.auth.SigninActivity"/>
+        <activity android:name=".feeds.chat.ChatActivity" />
+
+        <activity android:name=".feeds.intro.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".feeds.chat.ChatActivity"></activity>
     </application>
 
 </manifest>
