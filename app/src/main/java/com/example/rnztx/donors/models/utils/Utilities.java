@@ -40,6 +40,21 @@ public class Utilities {
         mPrefs = sharedPref;
     }
 
+    public static void storeUserInfo(UserInfo userInfo){
+        SharedPreferences.Editor editor = mPrefs.edit();
+        if (userInfo.getMobileNumber()!=null){
+            editor.putString(Constants.PREF_USER_MOBILE,userInfo.getMobileNumber());
+        }
+        if (userInfo.getAddress()!=null)
+            editor.putString(Constants.PREF_USER_ADDRESS,userInfo.getAddress());
+        if (userInfo.getBloodGroup()!=null)
+            editor.putString(Constants.PREF_USER_BLOODGROUP,userInfo.getBloodGroup());
+        if (userInfo.getPinCode()!=null)
+            editor.putString(Constants.PREF_USER_PINCODE,userInfo.getPinCode());
+
+        editor.apply();
+    }
+
     public static boolean isUserLogged(Activity activity){
         SharedPreferences sharedPreferences = activity.getSharedPreferences(Constants.PREF_KEYS,Context.MODE_PRIVATE);
         return sharedPreferences.contains(Constants.PREF_USER_EMAIL);
@@ -54,6 +69,14 @@ public class Utilities {
             editor.remove(Constants.PREF_USER_EMAIL);
         if (pref.contains(Constants.PREF_USER_NAME))
             editor.remove(Constants.PREF_USER_NAME);
+        if (pref.contains(Constants.PREF_USER_MOBILE))
+            editor.remove(Constants.PREF_USER_MOBILE);
+        if (pref.contains(Constants.PREF_USER_ADDRESS))
+            editor.remove(Constants.PREF_USER_ADDRESS);
+        if (pref.contains(Constants.PREF_USER_PINCODE))
+            editor.remove(Constants.PREF_USER_PINCODE);
+        if (pref.contains(Constants.PREF_USER_BLOODGROUP))
+            editor.remove(Constants.PREF_USER_BLOODGROUP);
         editor.apply();
     }
 
@@ -74,6 +97,9 @@ public class Utilities {
         return mPrefs.getString(Constants.PREF_USER_AVATAR,Constants.PREF_DEFAULT_VALUE);
     }
 
+    public static String getUserMobileNumber(){
+        return mPrefs.getString(Constants.PREF_USER_MOBILE,Constants.PREF_DEFAULT_VALUE);
+    }
     public static void signOut(Activity activity, GoogleApiClient mGoogleApiClient) {
         try {
             Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(

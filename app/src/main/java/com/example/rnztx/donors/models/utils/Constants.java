@@ -12,6 +12,11 @@ public class Constants {
     public static final String PREF_USER_NAME = "user_name";
     public static final String PREF_USER_EMAIL = "user_email";
     public static final String PREF_USER_AVATAR = "user_avatar";
+    public static final String PREF_USER_MOBILE = "user_mobile";
+    public static final String PREF_USER_ADDRESS= "user_address";
+    public static final String PREF_USER_BLOODGROUP = "user_bloodgroup";
+    public static final String PREF_USER_PINCODE = "user_pincode";
+
     public static final String PREF_KEYS = "com.example.rnztx.donors.PREF_KEYS";
     public static final String ARG_SECTION_NUMBER = "section_number";
 

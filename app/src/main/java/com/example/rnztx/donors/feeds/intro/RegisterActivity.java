@@ -1,5 +1,6 @@
 package com.example.rnztx.donors.feeds.intro;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.example.rnztx.donors.MainActivity;
 import com.example.rnztx.donors.R;
 import com.example.rnztx.donors.models.UserInfo;
 import com.example.rnztx.donors.models.utils.Constants;
@@ -188,8 +190,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     fRoot.child(Constants.FIREBASE_LOCATION_USERS + "/" +userInfo.getUserEmail().hashCode())
                     .setValue(userInfo);
 
-//                    Intent i=new Intent(this,MainActivity.class);
-//                    startActivity(i);
+                    Utilities.storeUserInfo(userInfo);
+                    Intent i=new Intent(this,MainActivity.class);
+                    startActivity(i);
                     Log.e(LOG_TAG,faddress+" "+fbloodgroup);
                 }
               break;

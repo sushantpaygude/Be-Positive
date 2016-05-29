@@ -2,6 +2,7 @@ package com.example.rnztx.donors.feeds;
 
 import android.app.DialogFragment;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 import com.example.rnztx.donors.R;
 import com.example.rnztx.donors.feeds.chat.ChatActivity;
 import com.example.rnztx.donors.models.Requirement;
+import com.example.rnztx.donors.models.UserInfo;
 import com.example.rnztx.donors.models.utils.Constants;
 import com.example.rnztx.donors.models.utils.Utilities;
 import com.firebase.client.Firebase;
@@ -37,6 +39,7 @@ public class DialogDetail extends DialogFragment {
     @Bind(R.id.txtLocationName) TextView txtLocationName;
     @Bind(R.id.btnAccept) ImageButton btnAccept;
     @Bind(R.id.btnChat) ImageButton btnChat;
+    @Bind(R.id.btnCallback) ImageButton btnCallBack;
 
     private Requirement mObjReq = null;
     @Nullable
@@ -95,6 +98,14 @@ public class DialogDetail extends DialogFragment {
         Bundle arguments = new Bundle();
         arguments.putString(Constants.EXTRA_TARGET_USERID,mObjReq.getDonorId());
         intent.putExtras(arguments);
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.btnCallback)
+    void onCallBackPressed(){
+        Intent intent = new Intent(Intent.ACTION_DIAL);
+        UserInfo donorInfo = Utilities.userInfoMap.get(mObjReq.getDonorId());
+        intent.setData(Uri.parse("tel:"+donorInfo.getMobileNumber()));
         startActivity(intent);
     }
 }

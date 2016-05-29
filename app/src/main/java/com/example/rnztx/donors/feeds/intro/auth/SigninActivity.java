@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.example.rnztx.donors.MainActivity;
 import com.example.rnztx.donors.R;
+import com.example.rnztx.donors.feeds.intro.RegisterActivity;
 import com.example.rnztx.donors.models.UserInfo;
 import com.example.rnztx.donors.models.utils.Constants;
 import com.example.rnztx.donors.models.utils.Utilities;
@@ -121,15 +122,14 @@ public class SigninActivity extends AppCompatActivity implements GoogleApiClient
             storeUsersInfo();
 
             // start Main Activity
-            UserInfo userInfo = Utilities.userInfoMap.get(Utilities.getUserId());
 
             Intent intent;
-//            if (!userInfo.getMobileNumber().equals(Constants.PREF_DEFAULT_VALUE)){
-//                intent = new Intent(this, MainActivity.class);
-//            }
-//            else
-//                intent = new Intent(this, RegisterActivity.class);
-            intent = new Intent(this, MainActivity.class);
+            if (Utilities.getUserMobileNumber().equals(Constants.PREF_DEFAULT_VALUE)){
+                intent = new Intent(this, RegisterActivity.class);
+            }
+            else {
+                intent = new Intent(this, MainActivity.class);
+            }
             startActivity(intent);
         } else {
             // Signed out, show unauthenticated UI.
@@ -141,12 +141,14 @@ public class SigninActivity extends AppCompatActivity implements GoogleApiClient
 //        Firebase.goOnline();
         Firebase fRoot = new Firebase(Constants.FIREBASE_URL);
         Firebase fUsersLocation = fRoot.child(Constants.FIREBASE_LOCATION_USERS);
+
         UserInfo currentUser = new UserInfo(
                 Utilities.getUserEmail(),
                 Utilities.getUserDisplayName(),
                 Utilities.getUserPhotoUrl());
-        
-        fUsersLocation
+
+        if (Utilities.getUserMobileNumber().equals(Constants.PREF_DEFAULT_VALUE))
+            fUsersLocation
                 .child(Utilities.getUserId())
                 .setValue(currentUser, new Firebase.CompletionListener() {
                     @Override
