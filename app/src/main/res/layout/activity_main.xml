@@ -63,7 +63,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/tabbar"
-        android:background="@android:color/holo_blue_dark"/>
+        android:background="@color/colorPrimary"/>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/container"
