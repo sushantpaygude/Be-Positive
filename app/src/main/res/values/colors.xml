@@ -4,4 +4,7 @@
     <color name="colorPrimaryDark">#d32f2f</color>
     <color name="colorAccent">#81D4FA</color>
     <color name="colorBack">#ECF0F1</color>
+
+    <color name="tabUnselected">#ef9a9a</color>
+    <color name="tabSelected">#fafafa</color>
 </resources>

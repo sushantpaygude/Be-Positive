@@ -75,6 +75,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                 .build();
 
         mGoogleApiClient.connect();
+        getSupportActionBar().setElevation(0);
     }
 
 

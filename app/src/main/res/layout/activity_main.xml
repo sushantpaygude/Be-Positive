@@ -63,7 +63,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/tabbar"
-        android:background="@color/colorPrimary"/>
+        android:background="@color/colorPrimary"
+        app:tabSelectedTextColor="@color/tabSelected"
+        app:tabTextColor="@color/tabUnselected"
+        />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/container"
