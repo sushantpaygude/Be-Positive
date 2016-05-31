@@ -3,7 +3,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="button_signin">Sign In</string>
-    <string name="title_activity_main">Donors++</string>
+    <string name="title_activity_main">Be Positive</string>
     <string name="action_sign_out">Sign Out</string>
     <string name="section_format">All Accepted Requests Goes Here</string>
     <string name="feed_detail">requirement_detail</string>
@@ -11,6 +11,8 @@
     <string name="requirement_status_accepted">Accepted</string>
     <string name="requirement_status_pending">Pending</string>
 
+    <string name="dialog_title_recipient">Recipient Information</string>
+    <string name="dialog_title_donor">Donor Information</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

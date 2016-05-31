@@ -10,17 +10,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.rnztx.donors.R;
 import com.example.rnztx.donors.feeds.chat.ChatActivity;
+import com.example.rnztx.donors.models.CircleTransform;
 import com.example.rnztx.donors.models.Requirement;
 import com.example.rnztx.donors.models.UserInfo;
 import com.example.rnztx.donors.models.utils.Constants;
 import com.example.rnztx.donors.models.utils.Utilities;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
+import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -40,6 +43,7 @@ public class DialogDetail extends DialogFragment {
     @Bind(R.id.btnAccept) ImageButton btnAccept;
     @Bind(R.id.btnChat) ImageButton btnChat;
     @Bind(R.id.btnCallback) ImageButton btnCallBack;
+    @Bind(R.id.imgAvatar) ImageView imgAvatar;
 
     private Requirement mObjReq = null;
     @Nullable
@@ -49,8 +53,26 @@ public class DialogDetail extends DialogFragment {
         Bundle bundle = getArguments();
         mObjReq = bundle.getParcelable(getString(R.string.feed_detail));
         ButterKnife.bind(this,rootView);
+        String userId = null;
 
-        txtUserName.setText(mObjReq.getRecipientId());
+        if (mObjReq.getStatus()){
+            userId = mObjReq.getDonorId();
+            getDialog().setTitle(getString(R.string.dialog_title_donor));
+        }else{
+            userId = mObjReq.getRecipientId();
+            getDialog().setTitle(getString(R.string.dialog_title_recipient));
+        }
+
+
+        UserInfo userInfo = Utilities.userInfoMap.get(userId);
+        txtUserName.setText(userInfo.getUserDisplayName());
+
+        if (!userInfo.getUserPhotoUrl().equals(Constants.PREF_DEFAULT_VALUE))
+            Picasso.with(getActivity())
+                    .load(userInfo.getUserPhotoUrl())
+                    .transform(new CircleTransform())
+                    .into(imgAvatar);
+
         txtLocationName.setText(mObjReq.getLocName());
         txtBloodGroup.setText(mObjReq.getBloodGroup());
 

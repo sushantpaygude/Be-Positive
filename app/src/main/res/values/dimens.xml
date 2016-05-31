@@ -10,6 +10,7 @@
     <dimen name="bloodGroup_textSize">34sp</dimen>
     <dimen name="locationName_textSize">32sp</dimen>
     <dimen name="date_textSize">16sp</dimen>
+    <dimen name="text_size_medium">21sp</dimen>
 
     <!--Chat Messages-->
     <dimen name="item_conversation_textSize">18sp</dimen>
