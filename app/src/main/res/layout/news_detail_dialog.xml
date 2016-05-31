@@ -10,10 +10,10 @@
         >
         <LinearLayout
             android:layout_width="match_parent"
-            android:orientation="horizontal"
-            android:layout_height="0dp"
-            android:layout_weight="2"
+            android:orientation="vertical"
+            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:gravity="center"
             >
             <ImageView
                 android:id="@+id/imgAvatar"
@@ -21,33 +21,28 @@
                 android:layout_height="80dp"
                 android:src="@drawable/ic_avatar"
                 android:scaleType="fitXY"
+
                 />
-            <LinearLayout
-                android:layout_width="match_parent"
+
+            <TextView
+                android:id="@+id/txtUserName"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:layout_marginStart="@dimen/activity_horizontal_margin"
-                android:orientation="vertical">
-                <TextView
-                    android:id="@+id/txtUserName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/text_size_medium"
-                    android:singleLine="true"/>
+                android:textSize="@dimen/text_size_medium"
+                android:singleLine="true"/>
 
-                <TextView
-                    android:id="@+id/txtBloodGroup"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/date_textSize"/>
+            <TextView
+                android:id="@+id/txtBloodGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/date_textSize"/>
 
-                <TextView
-                    android:id="@+id/txtLocationName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/date_textSize"
-                    />
-            </LinearLayout>
+            <TextView
+                android:id="@+id/txtLocationName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/date_textSize"
+                />
         </LinearLayout>
         <LinearLayout
             android:layout_gravity="center"

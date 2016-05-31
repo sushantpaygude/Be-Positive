@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -39,10 +40,13 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
     /**
-     * The {@link ViewPager} that will host the section contents.
+     * The {@link ViewPager} that will r the section contents.
      */
     private ViewPager mViewPager;
-
+    private TabLayout mTabLayout;
+    private static final String LOG_TAG = MainActivity.class.getSimpleName();
+    private static final int[] tabIcons = {R.drawable.tab_pending,R.drawable.tab_accepted
+            ,R.drawable.tab_add_request,R.drawable.tab_messages};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,8 +61,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
         // Add Tab bar Navigation
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabbar);
-        tabLayout.setupWithViewPager(mViewPager);
+        mTabLayout = (TabLayout) findViewById(R.id.tabbar);
+        mTabLayout.setupWithViewPager(mViewPager);
 
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
@@ -76,6 +80,31 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
         mGoogleApiClient.connect();
         getSupportActionBar().setElevation(0);
+
+        for (int i=0; i<4;i++){
+            mTabLayout.getTabAt(i).setIcon(tabIcons[i]);
+        }
+
+        mTabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+//                Log.e(LOG_TAG,"Selected: "+tab.getPosition());
+                int tabPosition = tab.getPosition();
+                int icon = tabIcons[tabPosition];
+
+                tab.setIcon(icon);
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+                Log.e(LOG_TAG,"UnSelected: "+tab.getPosition());
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
     }
 
 
@@ -175,16 +204,16 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
         @Override
         public CharSequence getPageTitle(int position) {
-            switch (position) {
-                case 0:
-                    return "Pending";
-                case 1:
-                    return "Accepted";
-                case 2:
-                    return "New";
-                case 3:
-                    return "Messages";
-            }
+//            switch (position) {
+//                case 0:
+//                    return "Pending";
+//                case 1:
+//                    return "Accepted";
+//                case 2:
+//                    return "New";
+//                case 3:
+//                    return "Messages";
+//            }
             return null;
         }
     }

@@ -44,8 +44,9 @@ public class DialogDetail extends DialogFragment {
     @Bind(R.id.btnChat) ImageButton btnChat;
     @Bind(R.id.btnCallback) ImageButton btnCallBack;
     @Bind(R.id.imgAvatar) ImageView imgAvatar;
-
+    UserInfo mUserInfo;
     private Requirement mObjReq = null;
+    private final float disabledBtnAlpha = 0.2f;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -58,18 +59,24 @@ public class DialogDetail extends DialogFragment {
         if (mObjReq.getStatus()){
             userId = mObjReq.getDonorId();
             getDialog().setTitle(getString(R.string.dialog_title_donor));
+            btnAccept.setEnabled(false);
+            btnAccept.setAlpha(disabledBtnAlpha);
         }else{
             userId = mObjReq.getRecipientId();
             getDialog().setTitle(getString(R.string.dialog_title_recipient));
+            btnChat.setEnabled(false);
+            btnCallBack.setEnabled(false);
+            btnChat.setAlpha(disabledBtnAlpha);
+            btnCallBack.setAlpha(disabledBtnAlpha);
         }
 
 
-        UserInfo userInfo = Utilities.userInfoMap.get(userId);
-        txtUserName.setText(userInfo.getUserDisplayName());
+        mUserInfo = Utilities.userInfoMap.get(userId);
+        txtUserName.setText(mUserInfo.getUserDisplayName());
 
-        if (!userInfo.getUserPhotoUrl().equals(Constants.PREF_DEFAULT_VALUE))
+        if (!mUserInfo.getUserPhotoUrl().equals(Constants.PREF_DEFAULT_VALUE))
             Picasso.with(getActivity())
-                    .load(userInfo.getUserPhotoUrl())
+                    .load(mUserInfo.getUserPhotoUrl())
                     .transform(new CircleTransform())
                     .into(imgAvatar);
 
@@ -126,8 +133,8 @@ public class DialogDetail extends DialogFragment {
     @OnClick(R.id.btnCallback)
     void onCallBackPressed(){
         Intent intent = new Intent(Intent.ACTION_DIAL);
-        UserInfo donorInfo = Utilities.userInfoMap.get(mObjReq.getDonorId());
-        intent.setData(Uri.parse("tel:"+donorInfo.getMobileNumber()));
+
+        intent.setData(Uri.parse("tel:"+mUserInfo.getMobileNumber()));
         startActivity(intent);
     }
 }

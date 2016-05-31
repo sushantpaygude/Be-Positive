@@ -14,4 +14,5 @@
 
     <!--Chat Messages-->
     <dimen name="item_conversation_textSize">18sp</dimen>
+    <dimen name="tab_icon_size">32dp</dimen>
 </resources>

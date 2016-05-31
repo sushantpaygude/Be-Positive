@@ -68,6 +68,7 @@ public class AdapterFeedList extends ArrayAdapter<Requirement> {
             if (!userInfo.getUserPhotoUrl().equals(Constants.PREF_DEFAULT_VALUE))
                 Picasso.with(mContext)
                     .load(userInfo.getUserPhotoUrl())
+                    .transform(new CircleTransform())
                     .into(itemApproved.imgAvatar);
         }
 
