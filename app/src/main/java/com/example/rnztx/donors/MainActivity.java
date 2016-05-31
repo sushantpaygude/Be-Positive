@@ -1,14 +1,17 @@
 package com.example.rnztx.donors;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,10 +19,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.rnztx.donors.feeds.chat.MessageList;
-import com.example.rnztx.donors.feeds.intro.auth.SigninActivity;
 import com.example.rnztx.donors.feeds.RequirementForm;
 import com.example.rnztx.donors.feeds.accepted.FeedAccepted;
+import com.example.rnztx.donors.feeds.chat.MessageList;
+import com.example.rnztx.donors.feeds.intro.auth.SigninActivity;
 import com.example.rnztx.donors.feeds.pending.FeedPending;
 import com.example.rnztx.donors.models.utils.Utilities;
 import com.google.android.gms.auth.api.Auth;
@@ -47,6 +50,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
     private static final int[] tabIcons = {R.drawable.tab_pending,R.drawable.tab_accepted
             ,R.drawable.tab_add_request,R.drawable.tab_messages};
+    private Context mContext = this;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,18 +92,20 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         }
 
         mTabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            private int colorSelected = ContextCompat.getColor(mContext,R.color.tabSelected);
+            private int colorUnselected = ContextCompat.getColor(mContext,R.color.tabUnselected);
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
 //                Log.e(LOG_TAG,"Selected: "+tab.getPosition());
                 int tabPosition = tab.getPosition();
-                int icon = tabIcons[tabPosition];
-
+                Drawable icon = ContextCompat.getDrawable(mContext,tabIcons[tabPosition]);
+                icon.setColorFilter(colorSelected, PorterDuff.Mode.SRC_IN);
                 tab.setIcon(icon);
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-                Log.e(LOG_TAG,"UnSelected: "+tab.getPosition());
+                tab.getIcon().setColorFilter(colorUnselected,PorterDuff.Mode.SRC_IN);
             }
 
             @Override
