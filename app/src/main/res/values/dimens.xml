@@ -7,8 +7,8 @@
     <dimen name="appbar_padding_top">8dp</dimen>
 
     <!--News Feed-->
-    <dimen name="bloodGroup_textSize">34sp</dimen>
-    <dimen name="locationName_textSize">32sp</dimen>
+    <dimen name="bloodGroup_textSize">32sp</dimen>
+    <dimen name="locationName_textSize">26sp</dimen>
     <dimen name="date_textSize">16sp</dimen>
     <dimen name="text_size_medium">21sp</dimen>
 

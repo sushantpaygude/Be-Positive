@@ -79,7 +79,7 @@ public class ChatFragment extends Fragment {
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 ChatMessage incomingMessage = dataSnapshot.getValue(ChatMessage.class);
                 String userName = Utilities.userInfoMap.get(incomingMessage.getUserId()).getUserDisplayName();
-                String message = userName.split(" ")[0] + " :\t\t" +incomingMessage.getMessage();
+                String message = userName.split(" ")[0] + ": " +incomingMessage.getMessage();
                 mArrayAdapter.add(message);
             }
 
@@ -109,16 +109,18 @@ public class ChatFragment extends Fragment {
     @OnClick(R.id.img_send_chat_message)
     public void onMessageSend(){
         String newMessage = edtxNewMesssage.getText().toString();
-        ChatMessage newMessageObj = new ChatMessage(Utilities.getUserId(),newMessage);
-        String uniqueKey = mFirebaseNewMessage.push().getKey();
-        mFirebaseNewMessage.child(uniqueKey).setValue(newMessageObj, new Firebase.CompletionListener() {
-            @Override
-            public void onComplete(FirebaseError firebaseError, Firebase firebase) {
-                if (firebaseError==null){
-                    edtxNewMesssage.setText("");
+        if (!newMessage.isEmpty()){
+            ChatMessage newMessageObj = new ChatMessage(Utilities.getUserId(),newMessage);
+            String uniqueKey = mFirebaseNewMessage.push().getKey();
+            mFirebaseNewMessage.child(uniqueKey).setValue(newMessageObj, new Firebase.CompletionListener() {
+                @Override
+                public void onComplete(FirebaseError firebaseError, Firebase firebase) {
+                    if (firebaseError==null){
+                        edtxNewMesssage.setText("");
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 
 }

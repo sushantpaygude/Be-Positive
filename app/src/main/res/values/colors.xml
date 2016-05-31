@@ -5,6 +5,7 @@
     <color name="colorAccent">#81D4FA</color>
     <color name="colorBack">#ECF0F1</color>
 
-    <color name="tabUnselected">#ef9a9a</color>
+    <!--<color name="tabUnselected">#B71C1C</color>-->
+    <color name="tabUnselected">#8f0000</color>
     <color name="tabSelected">#fafafa</color>
 </resources>

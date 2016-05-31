@@ -101,6 +101,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                 Drawable icon = ContextCompat.getDrawable(mContext,tabIcons[tabPosition]);
                 icon.setColorFilter(colorSelected, PorterDuff.Mode.SRC_IN);
                 tab.setIcon(icon);
+                mViewPager.setCurrentItem(tabPosition,true);
             }
 
             @Override
