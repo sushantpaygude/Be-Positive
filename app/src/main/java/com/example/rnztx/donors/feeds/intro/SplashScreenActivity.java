@@ -17,7 +17,7 @@ public class SplashScreenActivity extends AppCompatActivity {
     private static final int STOPSPLASH = 0;
     //time duration in millisecond for which your splash screen should visible to
     //user. here i have taken half second
-    private static final long SPLASHTIME = 3000;
+    private static final long SPLASHTIME = 3;
     TextView bannertxt;
     //handler for splash screen
     private Handler splashHandler = new Handler() {

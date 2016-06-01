@@ -48,10 +48,11 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     private ViewPager mViewPager;
     private TabLayout mTabLayout;
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
-    private static final int[] tabIcons = {R.drawable.tab_pending,R.drawable.tab_accepted
-            ,R.drawable.tab_add_request,R.drawable.tab_messages};
+    private static final int[] tabIcons = {R.drawable.tab_pending,
+            R.drawable.tab_accepted
+            ,R.drawable.tab_add_request,
+            R.drawable.tab_messages};
     private Context mContext = this;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -235,5 +236,16 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     protected void onDestroy() {
         super.onDestroy();
         mGoogleApiClient.disconnect();
+    }
+
+    @Override
+    public void onBackPressed() {
+        //Exit On Back Button Pressed
+        super.onBackPressed();
+        finish();
+        Intent homeIntent = new Intent(Intent.ACTION_MAIN);
+        homeIntent.addCategory(Intent.CATEGORY_HOME);
+        homeIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(homeIntent);
     }
 }
