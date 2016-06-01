@@ -1,6 +1,8 @@
 package com.example.rnztx.donors.feeds;
 
+import android.app.Activity;
 import android.app.DialogFragment;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -45,8 +47,17 @@ public class DialogDetail extends DialogFragment {
     @Bind(R.id.btnCallback) ImageButton btnCallBack;
     @Bind(R.id.imgAvatar) ImageView imgAvatar;
     UserInfo mUserInfo;
+    Context mContext;
     private Requirement mObjReq = null;
     private final float disabledBtnAlpha = 0.2f;
+
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        mContext = activity;
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -95,6 +106,10 @@ public class DialogDetail extends DialogFragment {
     void acceptRequest(){
         if(mObjReq != null){
             try {
+                // disable accept button
+                btnAccept.setEnabled(false);
+                btnAccept.setAlpha(disabledBtnAlpha);
+
                 Firebase.goOffline();
                 Firebase.goOnline();
 
@@ -104,15 +119,19 @@ public class DialogDetail extends DialogFragment {
                 Map<String,Object> mapObj = new HashMap<>();
                 mapObj.put(Constants.FIREBASE_PROPERTY_STATUS,true);
                 mapObj.put(Constants.FIREBASE_PROPERTY_DONOR_ID, Utilities.getUserId());
-
                 fChild.updateChildren(mapObj, new Firebase.CompletionListener() {
                     @Override
                     public void onComplete(FirebaseError firebaseError, Firebase firebase) {
-                        if (firebaseError!=null)
-                            Toast.makeText(getActivity(),"Failed",Toast.LENGTH_SHORT).show();
-                        else{
-                            Toast.makeText(getActivity(),"Accepted",Toast.LENGTH_LONG).show();
-                            dismiss();
+                        close();
+                        // If user Closes the Dialog box it may throw error
+                        try {
+                            if (firebaseError!=null)
+                                Toast.makeText(mContext,"Failed",Toast.LENGTH_SHORT).show();
+                            else{
+                                Toast.makeText(mContext,"Accepted",Toast.LENGTH_LONG).show();
+                            }
+                        }catch (Exception e){
+                            Log.e(LOG_TAG,e.toString());
                         }
                     }
                 });
@@ -136,5 +155,12 @@ public class DialogDetail extends DialogFragment {
 
         intent.setData(Uri.parse("tel:"+mUserInfo.getMobileNumber()));
         startActivity(intent);
+    }
+
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        close();
     }
 }

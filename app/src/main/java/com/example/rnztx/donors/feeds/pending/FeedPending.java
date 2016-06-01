@@ -2,6 +2,7 @@ package com.example.rnztx.donors.feeds.pending;
 
 
 import android.app.FragmentManager;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -37,6 +38,7 @@ public class FeedPending extends Fragment {
     private ArrayList<Requirement> arrayListData;
     private ArrayList<Requirement> dummyData;
     private static Firebase mFirebaseRef;
+    Context mContext = getActivity();
     public FeedPending() {
         // Required empty public constructor
     }
@@ -118,6 +120,7 @@ public class FeedPending extends Fragment {
                 String EXTRA_NAME = getString(R.string.feed_detail);
                 bundle.putParcelable(EXTRA_NAME,requirement);
                 detail.setArguments(bundle);
+
 
                 // launch dialog box
                 FragmentManager fm = getActivity().getFragmentManager();

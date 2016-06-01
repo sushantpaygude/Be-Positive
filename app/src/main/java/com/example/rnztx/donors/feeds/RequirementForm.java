@@ -91,6 +91,8 @@ public class RequirementForm extends Fragment  {
         int pinCode = 0;
         String bloodGroup = null;
         String locName = null;
+        btn_submit.setEnabled(false);
+        btn_submit.setAlpha(0.2f);
         try {
             //when Exception is thrown, spinner will also raise Error.
             int iLocation = spinner_areaName.getSelectedItemPosition();
@@ -108,6 +110,7 @@ public class RequirementForm extends Fragment  {
             return;
         }else {
             try {
+
                 String userId = Utilities.getUserId();
                 KeyReference objKeyReference = null;
 
@@ -131,31 +134,28 @@ public class RequirementForm extends Fragment  {
 
                 Map<String,Object> mapData = new HashMap<>();
                 mapData.put(Constants.FIREBASE_LOCATION_REQUIREMENTS+"/"+keyRequirement,mapRequirement);
-                mapData.put(Constants.FIREBASE_LOCATION_REQ_REFERENCES+"/"+keyReference,mapReference);
+//                mapData.put(Constants.FIREBASE_LOCATION_REQ_REFERENCES+"/"+keyReference,mapReference);
 
                 fRoot.updateChildren(mapData, new Firebase.CompletionListener() {
                     @Override
                     public void onComplete(FirebaseError firebaseError, Firebase firebase) {
-                        if(firebaseError!=null)
-                            Log.e(LOG_TAG,firebaseError.getMessage());
-                        else
-                            Toast.makeText(getActivity(),"Done",Toast.LENGTH_SHORT).show();
+                        btn_submit.setEnabled(true);
+                        btn_submit.setAlpha(1.0f);
+                        if(firebaseError!=null) {
+                            Log.e(LOG_TAG, firebaseError.getMessage());
+                            Toast.makeText(getActivity(), "Failed", Toast.LENGTH_SHORT).show();
+                        }
+                        else {
+                            Toast.makeText(getActivity(), "Submitted", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
             }
             catch (Exception e){
                 Log.e(LOG_TAG,e.toString());
             }
-//            createReference(bloodGroup,pinCode,uniqueId);
-//            Log.e(LOG_TAG,"index: "+spinner_bloodGroup.getSelectedItemPosition());
         }
     }
 
-    private String getReferenceURL(String bloodGroup,int pinCode){
-        // base url + ref + blood group+ pincode
-        String url =  Constants.FIREBASE_URL_REFERENCES;
-//                "/"+bloodGroup+"/"+pinCode;
-        Log.e(LOG_TAG,url);
-        return url;
-    }
+
 }
