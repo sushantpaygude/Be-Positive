@@ -15,10 +15,12 @@ import com.example.rnztx.donors.feeds.DialogDetail;
 import com.example.rnztx.donors.models.AdapterFeedList;
 import com.example.rnztx.donors.models.Requirement;
 import com.example.rnztx.donors.models.utils.Constants;
+import com.example.rnztx.donors.models.utils.Utilities;
 import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
+import com.firebase.client.Query;
 
 import java.util.ArrayList;
 
@@ -50,7 +52,9 @@ public class FeedAccepted extends Fragment {
         ButterKnife.bind(this,rootView);
         listViewFeedAccepted.setAdapter(mAdapterPendingList);
         Firebase fRoot = new Firebase(Constants.FIREBASE_URL_REQUIREMENTS);
-        fRoot.addChildEventListener(new ChildEventListener() {
+        Query query = fRoot.orderByChild(Constants.FIREBASE_PROPERTY_STATUS)
+                .equalTo(true);
+        query.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 addToListView(dataSnapshot);
@@ -104,10 +108,10 @@ public class FeedAccepted extends Fragment {
         Requirement obj = dataSnapshot.getValue(Requirement.class);
         if (obj!=null){
 //            // if logged users request is Accepted
-//            if (obj.getStatus() && obj.getRecipientId().equals(Utilities.getUserId()))
-//                mAdapterPendingList.add(obj);
-            if (obj.getStatus())
+            if (obj.getStatus() && obj.getRecipientId().equals(Utilities.getUserId()))
                 mAdapterPendingList.add(obj);
+//            if (obj.getStatus())
+//                mAdapterPendingList.add(obj);
         }
     }
 }

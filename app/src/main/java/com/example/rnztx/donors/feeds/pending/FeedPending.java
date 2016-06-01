@@ -17,6 +17,7 @@ import com.example.rnztx.donors.feeds.DialogDetail;
 import com.example.rnztx.donors.models.AdapterFeedList;
 import com.example.rnztx.donors.models.Requirement;
 import com.example.rnztx.donors.models.utils.Constants;
+import com.example.rnztx.donors.models.utils.Utilities;
 import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -76,7 +77,10 @@ public class FeedPending extends Fragment {
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Requirement requirements = dataSnapshot.getValue(Requirement.class);
                 if(requirements!=null){
-                    if (!requirements.getStatus())
+                    // status is not accepted
+                    if (!requirements.getStatus() &&
+                            // req is not sent my logged user
+                            !requirements.getRecipientId().equals(Utilities.getUserId()))
                         mAdapterPendingList.add(requirements);
                 }
             }

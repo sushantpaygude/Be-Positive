@@ -162,7 +162,7 @@ public class SigninActivity extends AppCompatActivity implements GoogleApiClient
     }
 
     private void storeUsersInfo(){
-//        Log.e(LOG_TAG,"Storing user data: "+Constants.FIREBASE_URL_USERS);
+        // locally store User Data
         Firebase usersRoot = new Firebase(Constants.FIREBASE_URL_USERS);
         usersRoot.addChildEventListener(new ChildEventListener() {
             @Override
@@ -173,7 +173,8 @@ public class SigninActivity extends AppCompatActivity implements GoogleApiClient
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
+                UserInfo userInfo = dataSnapshot.getValue(UserInfo.class);
+                Utilities.userInfoMap.put(dataSnapshot.getKey(),userInfo);
             }
 
             @Override
