@@ -12,14 +12,20 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         >
-        <activity
-            android:name=".MainActivity"
+        <activity android:name=".MainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme" />
-        <activity android:name=".feeds.intro.auth.SigninActivity"/>
+
+        <activity android:name=".feeds.intro.auth.SigninActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            />
+
         <activity android:name=".feeds.chat.ChatActivity" />
         <activity android:name=".feeds.intro.RegisterActivity" />
-        <activity android:name=".feeds.intro.SplashScreenActivity">
+
+        <activity  android:name=".feeds.intro.SplashScreenActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
