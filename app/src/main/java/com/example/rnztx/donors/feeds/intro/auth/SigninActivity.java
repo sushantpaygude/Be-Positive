@@ -5,6 +5,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -24,6 +25,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.squareup.picasso.Picasso;
 
@@ -37,7 +39,7 @@ public class SigninActivity extends AppCompatActivity implements GoogleApiClient
     private static final String LOG_TAG = SigninActivity.class.getSimpleName();
     private static final int RC_SIGN_IN = 9001;
     ImageView imgGoogleAvatar;
-    @Bind(R.id.sign_in_button) Button btnSignIn;
+    SignInButton btnSignIn;
     @Bind(R.id.btn_sign_out) Button btnSignOut;
     @Bind(R.id.txt_project_title) TextView txtProjectTitle;
 
@@ -45,6 +47,8 @@ public class SigninActivity extends AppCompatActivity implements GoogleApiClient
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signin);
+        btnSignIn = (SignInButton) findViewById(R.id.sign_in_button);
+
         ButterKnife.bind(this);
         Firebase.setAndroidContext(this);
         // Configure sign-in to request the user's ID, email address, and basic
@@ -61,6 +65,12 @@ public class SigninActivity extends AppCompatActivity implements GoogleApiClient
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
 
+        btnSignIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                signIn();
+            }
+        });
 
         try {
             mGoogleApiClient.connect();
@@ -77,12 +87,11 @@ public class SigninActivity extends AppCompatActivity implements GoogleApiClient
         btnSignIn.setEnabled(true);
     }
 
-
-    @OnClick(R.id.sign_in_button)
     public void signIn() {
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
+
 
     @OnClick(R.id.btn_sign_out)
     public void signOut(){
