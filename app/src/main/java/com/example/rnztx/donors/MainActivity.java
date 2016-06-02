@@ -138,6 +138,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             Intent intent = new Intent(this, SigninActivity.class);
             startActivity(intent);
         }
+        else if (id == R.id.action_refresh){
+            recreate();
+        }
 
         return super.onOptionsItemSelected(item);
     }
