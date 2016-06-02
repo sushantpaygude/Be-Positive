@@ -47,6 +47,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+        //initialization
         super.onCreate(savedInstanceState);
         Firebase.setAndroidContext(this);
         setContentView(R.layout.activity_register);
@@ -158,7 +159,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         pcSpinner.setAdapter(pcadapter);
 //        pcSpinner.setOnItemSelectedListener(new CustomOnItemSelectedListener());
 
-
+        //font
         Typeface typeface=Typeface.createFromAsset(getAssets(), "fonts/Bariol_Regular.otf");    //ADD below 10 lines
         txtName.setTypeface(typeface);
         txtEmail.setTypeface(typeface);
@@ -169,10 +170,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         txtPhone.setTypeface(typeface);
         txtBloodgroup.setTypeface(typeface);
         txtPincode.setTypeface(typeface);
-        txtPhone.setText("7038124567");
-        txtAddress.setText("Kadegaon");
     }
-
+    //listener
     public void onClick(View v)
     {
       switch (v.getId()){
@@ -199,15 +198,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
       }
     }
 
-    protected void onStart() {
-        super.onStart();
 
-    }
-
-
-
-
-
+    //data stored in variables
     public void storedata() {
         Firebase ref = new Firebase("https://donordb.firebaseIO.com//web/data");
 
@@ -225,7 +217,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
 
-
+    //mobile no validation
     private boolean isValidMobile(String phone)
     {
         boolean check=false;
@@ -250,7 +242,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
 
-
+    //address validation
     private boolean isValidAddress(String address)
     {
 

@@ -42,7 +42,7 @@ public class SigninActivity extends AppCompatActivity implements GoogleApiClient
     SignInButton btnSignIn;
     @Bind(R.id.btn_sign_out) Button btnSignOut;
     @Bind(R.id.txt_project_title) TextView txtProjectTitle;
-
+    //1. Initialisation
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +51,7 @@ public class SigninActivity extends AppCompatActivity implements GoogleApiClient
 
         ButterKnife.bind(this);
         Firebase.setAndroidContext(this);
+
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -87,18 +88,14 @@ public class SigninActivity extends AppCompatActivity implements GoogleApiClient
         btnSignIn.setEnabled(true);
     }
 
+    // opens popup menu for account selection
     public void signIn() {
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
 
-    @OnClick(R.id.btn_sign_out)
-    public void signOut(){
-        Utilities.signOut(this,mGoogleApiClient);
-        if (imgGoogleAvatar!=null)
-            imgGoogleAvatar.setImageBitmap(null);
-    }
+    // when user selects account
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -110,7 +107,7 @@ public class SigninActivity extends AppCompatActivity implements GoogleApiClient
         }
     }
 
-
+    // handling signin result
     private void handleSignInResult(GoogleSignInResult result) {
         Log.d(LOG_TAG, "handleSignInResult:" + result.isSuccess());
         if (result.isSuccess()) {
@@ -145,6 +142,7 @@ public class SigninActivity extends AppCompatActivity implements GoogleApiClient
             Log.e(LOG_TAG,"Failed Sign in");
         }
     }
+
     private void uploadUserInfo(){
 //        Firebase.goOffline();
 //        Firebase.goOnline();
@@ -169,7 +167,6 @@ public class SigninActivity extends AppCompatActivity implements GoogleApiClient
                 });
 
     }
-
     private void storeUsersInfo(){
         // locally store User Data
         Firebase usersRoot = new Firebase(Constants.FIREBASE_URL_USERS);
@@ -202,6 +199,13 @@ public class SigninActivity extends AppCompatActivity implements GoogleApiClient
             }
         });
 
+    }
+
+    @OnClick(R.id.btn_sign_out)
+    public void signOut(){
+        Utilities.signOut(this,mGoogleApiClient);
+        if (imgGoogleAvatar!=null)
+            imgGoogleAvatar.setImageBitmap(null);
     }
 
 

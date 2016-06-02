@@ -3,6 +3,7 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginBottom="@dimen/activity_horizontal_margin"
     >
     <ImageView
         android:layout_gravity="center"
@@ -11,6 +12,7 @@
         android:layout_width="64dp"
         android:layout_height="64dp"
         android:maxHeight="64dp"
+        android:layout_margin="3dp"
         android:layout_marginRight="@dimen/activity_horizontal_margin"/>
     <LinearLayout
         android:orientation="vertical"

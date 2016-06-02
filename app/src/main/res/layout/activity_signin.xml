@@ -15,7 +15,7 @@
         android:layout_height="279dp"
         android:id="@+id/imageView"
         android:src="@drawable/logo"
-        android:textAlignment="center" />
+        />
 
     <TextView
         android:layout_marginTop="@dimen/activity_horizontal_margin"

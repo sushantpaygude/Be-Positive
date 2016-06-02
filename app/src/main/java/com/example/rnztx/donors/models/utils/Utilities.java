@@ -28,6 +28,7 @@ public class Utilities {
     public static Set<String> userChatListSet = new HashSet<>();
 
     public static void storeUserCredential(GoogleSignInAccount account, Activity activity){
+
         SharedPreferences sharedPref = activity.getSharedPreferences(Constants.PREF_KEYS,Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
         if (account.getPhotoUrl()!=null)
