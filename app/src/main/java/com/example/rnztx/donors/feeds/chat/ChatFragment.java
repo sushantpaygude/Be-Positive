@@ -50,6 +50,7 @@ public class ChatFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mList = new ArrayList<>();
         mArrayAdapter = new ArrayAdapter(getActivity(),R.layout.item_chat_messages,mList);
+
         Bundle arguments = getActivity().getIntent().getExtras();
         if (arguments.containsKey(Constants.EXTRA_TARGET_USERID)){
             mTargetUserId = arguments.getString(Constants.EXTRA_TARGET_USERID);
@@ -71,7 +72,8 @@ public class ChatFragment extends Fragment {
         ButterKnife.bind(this,rootView);
         listViewChats.setAdapter(mArrayAdapter);
 
-        Firebase firebase = new Firebase(Constants.FIREBASE_URL).child(Constants.FIREBASE_LOCATION_CHATMESSAGES);
+        Firebase firebase = new Firebase(Constants.FIREBASE_URL)
+                .child(Constants.FIREBASE_LOCATION_CHATMESSAGES);
         mFirebaseNewMessage = firebase.child(Utilities.getChatId(mTargetUserId));
 
         mFirebaseNewMessage.addChildEventListener(new ChildEventListener() {

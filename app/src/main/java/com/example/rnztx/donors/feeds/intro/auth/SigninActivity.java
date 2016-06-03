@@ -27,7 +27,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.squareup.picasso.Picasso;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -116,7 +115,7 @@ public class SigninActivity extends AppCompatActivity implements GoogleApiClient
 
 //            only for debugging
             imgGoogleAvatar = (ImageView)findViewById(R.id.img_google_plus_avatar);
-            Picasso.with(this).load(userAccount.getPhotoUrl()).into(imgGoogleAvatar);
+//            Picasso.with(this).load(userAccount.getPhotoUrl()).into(imgGoogleAvatar);
 
             // store User data
             Utilities.storeUserCredential(userAccount,this);

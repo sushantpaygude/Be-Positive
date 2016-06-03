@@ -66,10 +66,9 @@
         android:id="@+id/dev_sushant"
         android:singleLine="true"
 
-        android:layout_marginBottom="168dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_below="@+id/image_sushant"
+        android:layout_alignLeft="@+id/image_sushant"
+        android:layout_alignStart="@+id/image_sushant" />
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
@@ -114,7 +113,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Libraries"
         android:id="@+id/txt_libraries"
-
+        android:textStyle="bold"
         android:layout_below="@+id/dev_devender"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
