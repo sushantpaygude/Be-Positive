@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.rnztx.donors.feeds.AboutActivity;
 import com.example.rnztx.donors.feeds.RequirementForm;
 import com.example.rnztx.donors.feeds.accepted.FeedAccepted;
 import com.example.rnztx.donors.feeds.chat.MessageList;
@@ -140,6 +141,10 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         }
         else if (id == R.id.action_refresh){
             recreate();
+        }
+        else if(id == R.id.action_about){
+            Intent intent = new Intent(this, AboutActivity.class);
+            startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);

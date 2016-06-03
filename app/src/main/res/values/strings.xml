@@ -6,6 +6,7 @@
     <string name="title_activity_main">Be Positive</string>
     <string name="action_sign_out">Sign Out</string>
     <string name="action_refresh">Refresh</string>
+    <string name="action_about">About Us</string>
     <string name="section_format">All Accepted Requests Goes Here</string>
     <string name="feed_detail">requirement_detail</string>
 

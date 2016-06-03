@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+
+    >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Be Positive"
+        android:id="@+id/banner"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Developers"
+        android:id="@+id/developers"
+        android:layout_marginBottom="5dp"
+        android:layout_below="@+id/banner"
+        android:layout_centerHorizontal="true" />
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/rohit_image"
+        android:layout_marginLeft="8dp"
+        android:layout_above="@+id/dev_rohit"
+        android:layout_alignLeft="@+id/dev_rohit"
+        android:layout_alignStart="@+id/dev_rohit" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Rohit Karadkar"
+        android:singleLine="true"
+        android:id="@+id/dev_rohit"
+        android:layout_above="@+id/image_sushant"
+        android:layout_toLeftOf="@+id/developers"
+        android:layout_toStartOf="@+id/developers" />
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/image_sushant"
+        android:layout_centerVertical="true"
+        android:layout_alignLeft="@+id/dev_rohit"
+        android:layout_alignStart="@+id/dev_rohit" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Sushant Paygude"
+        android:id="@+id/dev_sushant"
+        android:singleLine="true"
+
+        android:layout_marginBottom="168dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/image_pratik"
+        android:layout_marginTop="5dp"
+        android:layout_above="@+id/dev_pratik"
+        android:layout_toRightOf="@+id/developers"
+        android:layout_toEndOf="@+id/developers" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Pratik Joshi"
+        android:id="@+id/dev_pratik"
+        android:singleLine="true"
+        android:layout_below="@+id/rohit_image"
+        android:layout_alignRight="@+id/image_devender"
+        android:layout_alignEnd="@+id/image_devender" />
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/image_devender"
+        android:layout_below="@+id/dev_pratik"
+        android:layout_toRightOf="@+id/developers"
+        android:layout_toEndOf="@+id/developers" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Devender Malhotra"
+        android:singleLine="true"
+        android:id="@+id/dev_devender"
+        android:layout_alignTop="@+id/dev_sushant"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Libraries"
+        android:id="@+id/txt_libraries"
+
+        android:layout_below="@+id/dev_devender"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="15dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_marginTop="2dp"
+        android:text="ButterKnife:http://jakewharton.github.io/butterknife/"
+        android:autoLink="web"
+        android:clickable="true"
+        android:linksClickable="true"
+        android:id="@+id/txt_butter"
+        android:layout_below="@+id/txt_libraries"
+        android:layout_alignLeft="@+id/txt_picasso"
+        android:layout_alignStart="@+id/txt_picasso" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Picasso:http://square.github.io/picasso/"
+        android:autoLink="web"
+        android:clickable="true"
+        android:layout_marginTop="5dp"
+        android:id="@+id/txt_picasso"
+        android:layout_below="@+id/txt_butter" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Firebase:https://www.firebase.com/"
+        android:id="@+id/txt_firebase"
+        android:autoLink="web"
+        android:clickable="true"
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/txt_picasso"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Google Services:https://developers.google.com/android/guides/api-client"
+        android:id="@+id/txt_google"
+        android:autoLink="web"
+        android:clickable="true"
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/txt_firebase"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+</RelativeLayout>

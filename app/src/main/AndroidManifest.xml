@@ -25,6 +25,10 @@
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             />
+        <activity android:name=".feeds.AboutActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            />
 
         <activity android:name=".feeds.chat.ChatActivity"
             android:configChanges="orientation"
