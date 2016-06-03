@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Inbox"
-        android:textSize="@dimen/text_size_medium"
+        android:textSize="15sp"
         android:layout_marginBottom="@dimen/activity_horizontal_margin"
         android:textStyle="italic"
         />
