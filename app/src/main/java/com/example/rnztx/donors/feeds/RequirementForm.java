@@ -39,9 +39,9 @@ public class RequirementForm extends Fragment  {
     @Bind(R.id.spinner_areaName) Spinner spinner_areaName;
     @Bind(R.id.spinner_bloodGroup) Spinner spinner_bloodGroup;
 
-    final static String[] dataBloodGroup = new String[]{"O+", "O-","A+","A-","B+","B-","AB+","AB-"};
-    final static String[] dataAreaName = new String[] {"Kondhwa","Market Yard","Viman Nagar","Vishrantwadi","Wakad","Bajirao Road"};
-    final static String[] dataAreaPincode = new String[] {"411048","411037","411014","411015","411057","411002"};
+
+
+
     private static final String LOG_TAG = RequirementForm.class.getSimpleName();
 
     public RequirementForm() {
@@ -72,10 +72,10 @@ public class RequirementForm extends Fragment  {
         Firebase.setAndroidContext(getContext());
 
         ArrayAdapter<String> adapterBloodGroup = new ArrayAdapter<String>(getContext(),
-                android.R.layout.simple_spinner_dropdown_item,dataBloodGroup);
+                android.R.layout.simple_spinner_dropdown_item,Constants.BLOOD_GROUP_LIST);
 
         ArrayAdapter<String> adapterAreaName = new ArrayAdapter<String>(getContext(),
-                android.R.layout.simple_spinner_dropdown_item,dataAreaName);
+                android.R.layout.simple_spinner_dropdown_item,Constants.LOCATION_LIST);
 
         //Bind Fragment
         ButterKnife.bind(this,rootView);
@@ -95,9 +95,9 @@ public class RequirementForm extends Fragment  {
         btn_submit.setAlpha(0.2f);
         try {
             //when Exception is thrown, spinner will also raise Error.
-            int iLocation = spinner_areaName.getSelectedItemPosition();
-            locName = dataAreaName[iLocation];
-            pinCode = Integer.parseInt(dataAreaPincode[iLocation]);
+            int indexLocation = spinner_areaName.getSelectedItemPosition();
+            locName = Constants.LOCATION_LIST[indexLocation];
+            pinCode = Integer.parseInt(Constants.PINCODE_LIST[indexLocation]);
             bloodGroup = spinner_bloodGroup.getSelectedItem().toString();
         }catch (Exception e){
             Log.e(LOG_TAG,e.toString());
