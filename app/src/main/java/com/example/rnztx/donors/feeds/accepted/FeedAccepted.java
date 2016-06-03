@@ -96,6 +96,8 @@ public class FeedAccepted extends Fragment {
                 detail.show(fm,"oll");
             }
         });
+
+
         return rootView;
     }
     public static FeedAccepted newInstance() {

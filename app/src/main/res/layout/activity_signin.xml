@@ -5,8 +5,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/signin_screen"
     android:fitsSystemWindows="true"
-    >
-
+    android:weightSum="1">
 
     <ImageView
         android:layout_marginTop="50dp"
@@ -45,7 +44,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Sign In"
-        android:enabled="false"
         />
 
     <Button
