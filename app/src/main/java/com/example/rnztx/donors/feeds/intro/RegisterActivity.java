@@ -16,10 +16,15 @@ import android.widget.TextView;
 
 import com.example.rnztx.donors.MainActivity;
 import com.example.rnztx.donors.R;
+import com.example.rnztx.donors.feeds.intro.auth.SigninActivity;
 import com.example.rnztx.donors.models.UserInfo;
 import com.example.rnztx.donors.models.utils.Constants;
 import com.example.rnztx.donors.models.utils.Utilities;
 import com.firebase.client.Firebase;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -28,7 +33,7 @@ import java.util.regex.Pattern;
 /**
  * Created by sushant on 7/3/16.
  */
-public class RegisterActivity extends AppCompatActivity implements View.OnClickListener
+public class RegisterActivity extends AppCompatActivity implements View.OnClickListener,GoogleApiClient.OnConnectionFailedListener
 {
 
     private static String LOG_TAG = RegisterActivity.class.getSimpleName();
@@ -43,7 +48,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private LinearLayout linearLayout;
     String fname, femail, faddress, hash ,fpincode, fphone, fbloodgroup, fpincodefull;
     int hashcode;
-
+    GoogleApiClient mGoogleApiClient;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -170,6 +175,22 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         txtPhone.setTypeface(typeface);
         txtBloodgroup.setTypeface(typeface);
         txtPincode.setTypeface(typeface);
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .requestProfile()
+                .build();
+
+        // Build a GoogleApiClient with access to the Google Sign-In API and the
+        // options specified by gso.
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build();
+
+        mGoogleApiClient.connect();
+
+
     }
     //listener
     public void onClick(View v)
@@ -195,6 +216,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     Log.e(LOG_TAG,faddress+" "+fbloodgroup);
                 }
               break;
+          case R.id.sign_out:
+              Utilities.signOut(this,mGoogleApiClient);
+              Intent intent = new Intent(this, SigninActivity.class);
+              startActivity(intent);
       }
     }
 
@@ -265,5 +290,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
 
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+
+    }
 }
 

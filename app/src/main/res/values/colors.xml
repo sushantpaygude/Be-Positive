@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#d32f2f</color>
     <color name="colorAccent">#81D4FA</color>
     <color name="colorBack">#ECF0F1</color>
+    <color name="colorButton">#22A7F0</color>
 
     <!--<color name="tabUnselected">#B71C1C</color>-->
     <color name="tabUnselected">#8f0000</color>
