@@ -108,7 +108,6 @@ public class SigninActivity extends AppCompatActivity implements GoogleApiClient
 
     // handling signin result
     private void handleSignInResult(GoogleSignInResult result) {
-        Log.d(LOG_TAG, "handleSignInResult:" + result.isSuccess());
         if (result.isSuccess()) {
             // Signed in successfully, show authenticated UI.
             GoogleSignInAccount userAccount = result.getSignInAccount();
@@ -138,7 +137,7 @@ public class SigninActivity extends AppCompatActivity implements GoogleApiClient
             startActivity(intent);
         } else {
             // Signed out, show unauthenticated UI.
-            Log.e(LOG_TAG,"Failed Sign in");
+            Log.e(LOG_TAG,"Failed Sign in : "+result.getStatus());
         }
     }
 
